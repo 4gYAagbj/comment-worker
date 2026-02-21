@@ -24,7 +24,7 @@ app.use('/api/*', async (c, next) => {
 if (typeof allowedOriginsString === "string") {
 allowedOrigins = allowedOriginsString.split(',');
 } else {
-console.log("Value is not a string: "+allowedOriginsString);
+console.log("Shit. Value is not a string: "+allowedOriginsString);
 }
 
   const corsMiddleware = cors({
