@@ -18,14 +18,7 @@ const app = new Hono();
 app.use('/api/*', async (c, next) => {
   const { env } = c;
   const allowedOriginsString = env.CW_ALLOWED_ORIGINS;
-  let allowedOrigins = '';
-
-
-if (typeof allowedOriginsString === "string") {
-allowedOrigins = allowedOriginsString.split(',');
-} else {
-console.log("Shit. Value is not a string: "+allowedOriginsString);
-}
+  const allowedOrigins = allowedOriginsString.split(',');
 
   const corsMiddleware = cors({
     origin: allowedOrigins,
