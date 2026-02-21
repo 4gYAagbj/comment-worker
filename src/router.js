@@ -29,6 +29,8 @@ app.use('/api/*', async (c, next) => {
   return corsMiddleware(c, next);
 });
 
+app.get('/api/handle/form', () => 'Hey world');
+
 // The api signature follows hono
 // POST to create the comment
 app.post('/api/handle/form', async c => {
