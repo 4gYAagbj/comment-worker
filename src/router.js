@@ -98,8 +98,8 @@ app.post('/api/handle/form', async c => {
   
   // Build input options schema
   const optionInputSchema = z.object(buildSchemaObject(allowedOptions, requiredOptions, optionTransforms)).strict();
-console.log("optionInputSchema: "+optionInputSchema);
-console.log("optionValues: "+optionValues);
+console.log("optionInputSchema: "+ JSON.stringify(optionInputSchema));
+console.log("optionValues: "+JSON.stringify(optionValues));
   // Validate the input options and escape
   const { validatedSchema: validatedOptions } = await Validator.check(optionInputSchema, optionValues);
 console.log("hey");
