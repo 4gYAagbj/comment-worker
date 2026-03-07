@@ -111,7 +111,7 @@ console.log("optionValues: "+JSON.stringify(optionValues));
     ...validatedFields,
     date
   };
-console.log("Start handle the data");
+
   // Handle the data to create the comment entry
   const commitMessage = Object.prototype.hasOwnProperty.call(
     staticmanCommentsConfig,
@@ -135,7 +135,7 @@ console.log("if moderation");
   if (moderation) {
     const createBranchResponse = await gh.createBranchOnRepository(branch, defaultBranch);
   }
-
+console.log("end if moderation");
   const filePath = `${directoryPath}/${filename}.yml`;
   const createCommentFileResponse = await gh.createFileOnRepository(
     filePath,
@@ -147,7 +147,7 @@ console.log("if moderation");
   if (!createCommentFileResponse?.content) {
     return c.text('Failed to create comment file. Please check if your file path is valid.', 422);
   }
-
+console.log("här");
   if (moderation) {
     const pullRequestBody = Object.prototype.hasOwnProperty.call(
       staticmanCommentsConfig,
