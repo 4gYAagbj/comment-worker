@@ -102,7 +102,6 @@ console.log("optionInputSchema: "+ JSON.stringify(optionInputSchema));
 console.log("optionValues: "+JSON.stringify(optionValues));
   // Validate the input options and escape
   const { validatedSchema: validatedOptions } = await Validator.check(optionInputSchema, optionValues);
-console.log("hey");
   // Generate unique placeholder properties
   const commentId = createCuid();
   const date = new Date().toISOString();
@@ -126,7 +125,7 @@ console.log("Start handle the data");
   const directoryPath = Object.prototype.hasOwnProperty.call(staticmanCommentsConfig, 'path')
     ? handlePlaceholders(staticmanCommentsConfig.path, fields, validatedOptions)
     : `_data/results/${new Date(fields.date).valueOf()}`;
-
+console.log("End handle the data");
   const yamlData = yaml.stringify(fields);
   const base64YamlData = Base64.encode(yamlData);
 
