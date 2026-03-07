@@ -84,24 +84,24 @@ app.post('/api/handle/form', async c => {
 
   // Build input fields schema
   const fieldInputSchema = z.object(buildSchemaObject(allowedFields, requiredFields, fieldTransforms)).strict();
-console.log("start validate");
+
   // Validate the input fields and escape
   const {
     validatedSchema: validatedFields,
     formattedError,
     rawError
   } = await Validator.check(fieldInputSchema, fieldValues);
-console.log("End validate");
+
   if (!isUndefined(rawError) || !isUndefined(formattedError)) {
     return c.text('Error', 400);
   }
-
+console.log("No err");
   // Build input options schema
   const optionInputSchema = z.object(buildSchemaObject(allowedOptions, requiredOptions, optionTransforms)).strict();
 
   // Validate the input options and escape
   const { validatedSchema: validatedOptions } = await Validator.check(optionInputSchema, optionValues);
-
+console.log("Start generate");
   // Generate unique placeholder properties
   const commentId = createCuid();
   const date = new Date().toISOString();
@@ -111,7 +111,7 @@ console.log("End validate");
     ...validatedFields,
     date
   };
-
+console.log("Start handle the data");
   // Handle the data to create the comment entry
   const commitMessage = Object.prototype.hasOwnProperty.call(
     staticmanCommentsConfig,
