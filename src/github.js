@@ -51,7 +51,7 @@ class GitHub {
     const appInstallationsResponse = await fetch('https://api.github.com/app/installations', {
       headers
     });
-console.log("kolla: "+appInstallationsResponse);
+console.log("kolla: "+(await appInstallationsResponse.text()));
     const appInstallations = await gatherResponse(appInstallationsResponse);
 
     const installation = appInstallations.find(item => item.account.login === organizationSlug);
