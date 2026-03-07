@@ -68,13 +68,11 @@ app.post('/api/handle/form', async c => {
   }
 
   // Handle the fields and options
-  console.log("Handle the fields and options");
   const fieldValues = body.fields || {};
   const optionValues = body.options || {};
-  console.log("End Handle the fields and options");
 
   if (shouldDebug) console.log(fieldValues);
-
+console.log("End fieldValues");
   // Handle the default config from the yml file
   const allowedFields = staticmanCommentsConfig?.allowedFields || [];
   const requiredFields = staticmanCommentsConfig?.requiredFields || [];
