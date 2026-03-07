@@ -98,10 +98,10 @@ app.post('/api/handle/form', async c => {
 console.log("No err");
   // Build input options schema
   const optionInputSchema = z.object(buildSchemaObject(allowedOptions, requiredOptions, optionTransforms)).strict();
-
+console.log("End no err");
   // Validate the input options and escape
   const { validatedSchema: validatedOptions } = await Validator.check(optionInputSchema, optionValues);
-console.log("Start generate");
+console.log("hey");
   // Generate unique placeholder properties
   const commentId = createCuid();
   const date = new Date().toISOString();
