@@ -29,7 +29,7 @@ class GitHub {
       id: appId,
       privateKey
     });
-console.log("token: "+token);
+//console.log("token: "+token);
     const { token: installationToken } = await this.getInstallationTokenByOrgName(
       appId,
       token,
