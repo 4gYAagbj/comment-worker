@@ -125,13 +125,13 @@ console.log("Start handle the data");
   const directoryPath = Object.prototype.hasOwnProperty.call(staticmanCommentsConfig, 'path')
     ? handlePlaceholders(staticmanCommentsConfig.path, fields, validatedOptions)
     : `_data/results/${new Date(fields.date).valueOf()}`;
-console.log("End handle the data");
+
   const yamlData = yaml.stringify(fields);
   const base64YamlData = Base64.encode(yamlData);
 
   const defaultBranch = staticmanCommentsConfig?.branch || 'master';
   const branch = `commentworker_${commentId}`;
-
+console.log("if moderation");
   if (moderation) {
     const createBranchResponse = await gh.createBranchOnRepository(branch, defaultBranch);
   }
