@@ -81,17 +81,17 @@ app.post('/api/handle/form', async c => {
   const moderation = staticmanCommentsConfig?.moderation === 'true' || true;
   const fieldTransforms = staticmanCommentsConfig?.transforms || staticmanCommentsConfig?.fieldTransforms || {};
   const optionTransforms = staticmanCommentsConfig?.optionTransforms || {};
-console.log("End Handle the default");
+
   // Build input fields schema
   const fieldInputSchema = z.object(buildSchemaObject(allowedFields, requiredFields, fieldTransforms)).strict();
-
+console.log("start validate");
   // Validate the input fields and escape
   const {
     validatedSchema: validatedFields,
     formattedError,
     rawError
   } = await Validator.check(fieldInputSchema, fieldValues);
-
+console.log("End validate");
   if (!isUndefined(rawError) || !isUndefined(formattedError)) {
     return c.text('Error', 400);
   }
