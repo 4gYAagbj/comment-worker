@@ -95,10 +95,11 @@ app.post('/api/handle/form', async c => {
   if (!isUndefined(rawError) || !isUndefined(formattedError)) {
     return c.text('Error', 400);
   }
-console.log("No err");
+  
   // Build input options schema
   const optionInputSchema = z.object(buildSchemaObject(allowedOptions, requiredOptions, optionTransforms)).strict();
-console.log("End no err");
+console.log("optionInputSchema: "+optionInputSchema);
+console.log("optionValues: "+optionValues);
   // Validate the input options and escape
   const { validatedSchema: validatedOptions } = await Validator.check(optionInputSchema, optionValues);
 console.log("hey");
