@@ -72,7 +72,7 @@ app.post('/api/handle/form', async c => {
   const optionValues = body.options || {};
 
   if (shouldDebug) console.log(fieldValues);
-console.log("End fieldValues");
+
   // Handle the default config from the yml file
   const allowedFields = staticmanCommentsConfig?.allowedFields || [];
   const requiredFields = staticmanCommentsConfig?.requiredFields || [];
@@ -81,7 +81,7 @@ console.log("End fieldValues");
   const moderation = staticmanCommentsConfig?.moderation === 'true' || true;
   const fieldTransforms = staticmanCommentsConfig?.transforms || staticmanCommentsConfig?.fieldTransforms || {};
   const optionTransforms = staticmanCommentsConfig?.optionTransforms || {};
-
+console.log("End Handle the default");
   // Build input fields schema
   const fieldInputSchema = z.object(buildSchemaObject(allowedFields, requiredFields, fieldTransforms)).strict();
 
