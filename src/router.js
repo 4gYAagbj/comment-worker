@@ -131,11 +131,12 @@ console.log("optionValues: "+JSON.stringify(optionValues));
 
   const defaultBranch = staticmanCommentsConfig?.branch || 'master';
   const branch = `commentworker_${commentId}`;
-console.log("if moderation");
+
   if (moderation) {
     const createBranchResponse = await gh.createBranchOnRepository(branch, defaultBranch);
   }
-console.log("end if moderation");
+  
+console.log("end prutt");
   const filePath = `${directoryPath}/${filename}.yml`;
   const createCommentFileResponse = await gh.createFileOnRepository(
     filePath,
