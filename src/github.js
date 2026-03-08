@@ -88,7 +88,8 @@ class GitHub {
   async createBranchOnRepository(branchName, branchFrom = 'master') {
     console.log("branchName: "+branchName+", branchFrom: "+branchFrom);
     const rl = `https://api.github.com/repos/${this.organizationSlug}/${this.repositorySlug}/git/matching-refs/heads/${branchFrom}`;
-    console.log("rl: "+rl);
+    //https://api.github.com/repos/4gYAagbj/comment-worker/git/matching-refs/heads/master
+    console.log("rl: "+ JSON.stringify(this.headers));
     const branchResponse = await fetch(
       rl,
       {
