@@ -97,6 +97,10 @@ class GitHub {
       }
     );
 
+if (!branchResponse.ok) {
+throw new Error(`HTTP error! status: ${response.status}`);
+}
+
     const branch = (await gatherResponse(branchResponse))[0];
 
     const createBranchResponse = await fetch(
