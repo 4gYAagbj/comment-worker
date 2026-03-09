@@ -129,9 +129,7 @@ app.post('/api/handle/form', async c => {
 
   const defaultBranch = staticmanCommentsConfig?.branch || 'master';
   const branch = `commentworker_${commentId}`;
-console.log("moderation: "+moderation);
   if (moderation) {
-    console.log("----------");
     const createBranchResponse = await gh.createBranchOnRepository(branch, defaultBranch);
   }
   

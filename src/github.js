@@ -96,7 +96,7 @@ class GitHub {
         headers: this.headers
       }
     );
-console.log('min status: '+branchResponse,status);
+console.log('min status: '+branchResponse.status);
 if (!branchResponse.ok) {
 throw new Error(`HTTP error! status: ${branchResponse.status}`);
 }
