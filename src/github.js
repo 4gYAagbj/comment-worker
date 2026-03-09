@@ -96,9 +96,9 @@ class GitHub {
         headers: this.headers
       }
     );
-
+console.log('min status: '+branchResponse,status);
 if (!branchResponse.ok) {
-throw new Error(`HTTP error! status: ${response.status}`);
+throw new Error(`HTTP error! status: ${branchResponse.status}`);
 }
 
     const branch = (await gatherResponse(branchResponse))[0];

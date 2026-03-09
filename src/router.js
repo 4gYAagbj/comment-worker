@@ -98,8 +98,6 @@ app.post('/api/handle/form', async c => {
   
   // Build input options schema
   const optionInputSchema = z.object(buildSchemaObject(allowedOptions, requiredOptions, optionTransforms)).strict();
-console.log("optionInputSchema: "+ JSON.stringify(optionInputSchema));
-console.log("optionValues: "+JSON.stringify(optionValues));
   // Validate the input options and escape
   const { validatedSchema: validatedOptions } = await Validator.check(optionInputSchema, optionValues);
   // Generate unique placeholder properties
@@ -131,12 +129,12 @@ console.log("optionValues: "+JSON.stringify(optionValues));
 
   const defaultBranch = staticmanCommentsConfig?.branch || 'master';
   const branch = `commentworker_${commentId}`;
-
+console.log("moderation: "+moderation);
   if (moderation) {
+    console.log("----------");
     const createBranchResponse = await gh.createBranchOnRepository(branch, defaultBranch);
   }
   
-console.log("end prutt");
   const filePath = `${directoryPath}/${filename}.yml`;
   const createCommentFileResponse = await gh.createFileOnRepository(
     filePath,
