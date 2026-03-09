@@ -101,8 +101,10 @@ if (!branchResponse.ok) {
 throw new Error(`HTTP error! status: ${branchResponse.status}`);
 }
 
-    const branch = (await gatherResponse(branchResponse))[0];
-console.log("branch: "+JSON.stringify(branch));
+const foo = await gatherResponse(branchResponse);
+console.log("branch: "+JSON.stringify(foo));
+    const branch = foo[0];
+
     const createBranchResponse = await fetch(
       `https://api.github.com/repos/${this.organizationSlug}/${this.repositorySlug}/git/refs`,
       {
