@@ -51,11 +51,11 @@ class GitHub {
     const appInstallationsResponse = await fetch('https://api.github.com/app/installations', {
       headers
     });
-    console.log(JSON.stringify(appInstallationsResponse));
+    
     const appInstallations = await gatherResponse(appInstallationsResponse);
 
     const installation = appInstallations.find(item => item.account.login === organizationSlug);
-
+console.log(JSON.stringify(installation.access_tokens_url));
     const installationTokenResponse = await fetch(installation.access_tokens_url, {
       method: 'POST',
       headers
