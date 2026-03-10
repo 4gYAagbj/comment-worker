@@ -51,7 +51,7 @@ class GitHub {
     const appInstallationsResponse = await fetch('https://api.github.com/app/installations', {
       headers
     });
-    
+    console.log(JSON.stringify(appInstallationsResponse));
     const appInstallations = await gatherResponse(appInstallationsResponse);
 
     const installation = appInstallations.find(item => item.account.login === organizationSlug);
@@ -96,10 +96,6 @@ class GitHub {
         headers: this.headers
       }
     );
-console.log('min status: '+branchResponse.status);
-if (!branchResponse.ok) {
-throw new Error(`HTTP error! status: ${branchResponse.status}`);
-}
 
 const foo = await gatherResponse(branchResponse);
 console.log("branch: "+JSON.stringify(foo));
