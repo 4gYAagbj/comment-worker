@@ -55,7 +55,6 @@ class GitHub {
     const appInstallations = await gatherResponse(appInstallationsResponse);
 
     const installation = appInstallations.find(item => item.account.login === organizationSlug);
-console.log(JSON.stringify(installation.access_tokens_url));
     const installationTokenResponse = await fetch(installation.access_tokens_url, {
       method: 'POST',
       headers
@@ -89,7 +88,6 @@ console.log(JSON.stringify(installation.access_tokens_url));
     console.log("branchName: "+branchName+", branchFrom: "+branchFrom);
     const rl = `https://api.github.com/repos/${this.organizationSlug}/${this.repositorySlug}/git/matching-refs/heads/${branchFrom}`;
     //https://api.github.com/repos/4gYAagbj/comment-worker/git/matching-refs/heads/master
-    console.log("rl: "+ JSON.stringify(this.headers));
     const branchResponse = await fetch(
       rl,
       {
