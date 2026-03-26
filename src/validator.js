@@ -26,7 +26,7 @@ class Validator {
   static async check(schema, fields, errorOverride = undefined) {
     const inspectionResults = await Validator.inspect(schema, fields);
     const { formattedError, rawError } = inspectionResults;
-console.log('Time to check');
+
     if (!isUndefined(formattedError)) {
       if (!isUndefined(errorOverride) && isFunction(errorOverride)) {
         errorOverride();

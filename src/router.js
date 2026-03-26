@@ -96,6 +96,7 @@ app.post('/api/handle/form', async c => {
     return c.text('Error', 400);
   }
   
+  console.log('Build input options schema');
   // Build input options schema
   const optionInputSchema = z.object(buildSchemaObject(allowedOptions, requiredOptions, optionTransforms)).strict();
   // Validate the input options and escape
@@ -133,6 +134,7 @@ app.post('/api/handle/form', async c => {
     const createBranchResponse = await gh.createBranchOnRepository(branch, defaultBranch);
   }
   
+  console.log('get filePath');
   const filePath = `${directoryPath}/${filename}.yml`;
   const createCommentFileResponse = await gh.createFileOnRepository(
     filePath,
