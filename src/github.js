@@ -150,7 +150,6 @@ console.log("branch: "+JSON.stringify(foo));
   }
 
   async getFileFromRepository(filePath, branchFrom = 'master') {
-    console.log('se här: getFileFromRepository');
     const fileResponse = await fetch(
       `https://api.github.com/repos/${this.organizationSlug}/${this.repositorySlug}/contents/${filePath}?ref=${branchFrom}`,
       {

@@ -67,6 +67,7 @@ app.post('/api/handle/form', async c => {
     return c.text('Unsupported Content-Type', 400);
   }
 
+  console.log('body was OK');
   // Handle the fields and options
   const fieldValues = body.fields || {};
   const optionValues = body.options || {};
@@ -144,7 +145,7 @@ app.post('/api/handle/form', async c => {
   if (!createCommentFileResponse?.content) {
     return c.text('Failed to create comment file. Please check if your file path is valid.', 422);
   }
-console.log("här");
+  
   if (moderation) {
     const pullRequestBody = Object.prototype.hasOwnProperty.call(
       staticmanCommentsConfig,
