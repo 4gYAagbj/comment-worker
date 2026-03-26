@@ -27,17 +27,13 @@ class Validator {
     const inspectionResults = await Validator.inspect(schema, fields);
     const { formattedError, rawError } = inspectionResults;
     if (!isUndefined(formattedError)) {
-      console.log('Time to check: 1');
       if (!isUndefined(errorOverride) && isFunction(errorOverride)) {
-        console.log('Time to check: 2');
         errorOverride();
       } else {
-        console.log('Time to check: 3');
         throw new Error(rawError);
       }
     }
-
-    console.log('Time to check: 4');
+    
     return inspectionResults;
   }
 }

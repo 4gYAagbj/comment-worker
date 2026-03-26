@@ -71,6 +71,7 @@ app.post('/api/handle/form', async c => {
   const fieldValues = body.fields || {};
   console.log('fields: '+JSON.stringify(fieldValues));
   const optionValues = body.options || {};
+  console.log('options: '+JSON.stringify(optionValues));
 
   if (shouldDebug) console.log(fieldValues);
 
