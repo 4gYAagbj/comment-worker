@@ -67,7 +67,6 @@ app.post('/api/handle/form', async c => {
     return c.text('Unsupported Content-Type', 400);
   }
 
-  console.log('body was OK');
   // Handle the fields and options
   const fieldValues = body.fields || {};
   const optionValues = body.options || {};
@@ -85,7 +84,7 @@ app.post('/api/handle/form', async c => {
 
   // Build input fields schema
   const fieldInputSchema = z.object(buildSchemaObject(allowedFields, requiredFields, fieldTransforms)).strict();
-
+console.log('Time to validate');
   // Validate the input fields and escape
   const {
     validatedSchema: validatedFields,
