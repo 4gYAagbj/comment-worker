@@ -71,9 +71,9 @@ app.post('/api/handle/form', async c => {
   // Handle the fields and options
   const fieldValues = body.fields || {};
   const optionValues = body.options || {};
-  console.log('options: '+JSON.stringify(optionValues));
+  // console.log('options: '+JSON.stringify(optionValues));
 
-  if (shouldDebug) console.log('fieldValues: '+JSON.stringify(fieldValues));
+  if (shouldDebug) console.log('fieldValues: ');
   // if (shouldDebug) console.log(fieldValues);
 
   // Handle the default config from the yml file
