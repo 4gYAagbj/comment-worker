@@ -66,7 +66,7 @@ app.post('/api/handle/form', async c => {
     console.log('här var det application/json');
     body = await req.json();
   } else {
-    console.log('oj oj');
+    console.log('oj oj: '+contentTypeHeader);
     return c.text('Unsupported Content-Type', 400);
   }
 
