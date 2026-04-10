@@ -98,7 +98,7 @@ console.log('fieldValues: '+JSON.stringify(fieldValues));
   if (!isUndefined(rawError) || !isUndefined(formattedError)) {
     return c.text('Error', 400);
   }
-  
+  console.log('så här långt')
   // Build input options schema
   const optionInputSchema = z.object(buildSchemaObject(allowedOptions, requiredOptions, optionTransforms)).strict();
   // Validate the input options and escape
