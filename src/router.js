@@ -87,14 +87,14 @@ console.log('fieldValues: '+JSON.stringify(fieldValues));
 
   // Build input fields schema
   const fieldInputSchema = z.object(buildSchemaObject(allowedFields, requiredFields, fieldTransforms)).strict();
-console.log('så här långt 1')
+console.log('fieldInputSchema: '+JSON.stringify(fieldInputSchema))
   // Validate the input fields and escape
   const {
     validatedSchema: validatedFields,
     formattedError,
     rawError
   } = await Validator.check(fieldInputSchema, fieldValues);
-console.log('så här långt 2')
+
   if (!isUndefined(rawError) || !isUndefined(formattedError)) {
     return c.text('Error', 400);
   }
