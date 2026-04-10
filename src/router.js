@@ -84,7 +84,7 @@ console.log('fieldValues: '+JSON.stringify(fieldValues));
   const moderation = staticmanCommentsConfig?.moderation === 'true' || true;
   const fieldTransforms = staticmanCommentsConfig?.transforms || staticmanCommentsConfig?.fieldTransforms || {};
   const optionTransforms = staticmanCommentsConfig?.optionTransforms || {};
-
+console.log('så här långt')
   // Build input fields schema
   const fieldInputSchema = z.object(buildSchemaObject(allowedFields, requiredFields, fieldTransforms)).strict();
 
