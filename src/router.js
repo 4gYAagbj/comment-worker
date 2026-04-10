@@ -84,21 +84,21 @@ console.log('fieldValues: '+JSON.stringify(fieldValues));
   const moderation = staticmanCommentsConfig?.moderation === 'true' || true;
   const fieldTransforms = staticmanCommentsConfig?.transforms || staticmanCommentsConfig?.fieldTransforms || {};
   const optionTransforms = staticmanCommentsConfig?.optionTransforms || {};
-console.log('så här långt')
+
   // Build input fields schema
   const fieldInputSchema = z.object(buildSchemaObject(allowedFields, requiredFields, fieldTransforms)).strict();
-
+console.log('så här långt 1')
   // Validate the input fields and escape
   const {
     validatedSchema: validatedFields,
     formattedError,
     rawError
   } = await Validator.check(fieldInputSchema, fieldValues);
-
+console.log('så här långt 2')
   if (!isUndefined(rawError) || !isUndefined(formattedError)) {
     return c.text('Error', 400);
   }
-  console.log('så här långt')
+  console.log('så här långt 3')
   // Build input options schema
   const optionInputSchema = z.object(buildSchemaObject(allowedOptions, requiredOptions, optionTransforms)).strict();
   // Validate the input options and escape
