@@ -7,6 +7,7 @@ class Validator {
     try {
       console.log('så här långt 2')
       validatedSchema = await schema.parseAsync(fields);
+      console.log('så här långt 2.5')
     } catch (validationError) {
       console.error(validationError);
       rawError = validationError;
