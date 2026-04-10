@@ -60,16 +60,18 @@ app.post('/api/handle/form', async c => {
   const contentTypeHeader = req.header('Content-Type');
 
   if (contentTypeHeader === 'application/x-www-form-urlencoded') {
+    console.log('här var det application/x-www-form-urlencoded');
     body = convertFormDataToObject(await req.parseBody());
   } else if (contentTypeHeader === 'application/json') {
+    console.log('här var det application/json');
     body = await req.json();
   } else {
+    console.log('oj oj');
     return c.text('Unsupported Content-Type', 400);
   }
 
   // Handle the fields and options
   const fieldValues = body.fields || {};
-  console.log('fields: '+JSON.stringify(fieldValues));
   const optionValues = body.options || {};
   console.log('options: '+JSON.stringify(optionValues));
 
@@ -98,7 +100,6 @@ app.post('/api/handle/form', async c => {
     return c.text('Error', 400);
   }
   
-  console.log('Build input options schema');
   // Build input options schema
   const optionInputSchema = z.object(buildSchemaObject(allowedOptions, requiredOptions, optionTransforms)).strict();
   // Validate the input options and escape
@@ -136,7 +137,6 @@ app.post('/api/handle/form', async c => {
     const createBranchResponse = await gh.createBranchOnRepository(branch, defaultBranch);
   }
   
-  console.log('get filePath');
   const filePath = `${directoryPath}/${filename}.yml`;
   const createCommentFileResponse = await gh.createFileOnRepository(
     filePath,
