@@ -63,10 +63,8 @@ app.post('/api/handle/form', async c => {
     console.log('här var det application/x-www-form-urlencoded');
     body = convertFormDataToObject(await req.parseBody());
   } else if (contentTypeHeader === 'application/json') {
-    console.log('här var det application/json');
     body = await req.json();
   } else {
-    console.log('oj oj: '+contentTypeHeader);
     return c.text('Unsupported Content-Type', 400);
   }
 
@@ -75,7 +73,8 @@ app.post('/api/handle/form', async c => {
   const optionValues = body.options || {};
   console.log('options: '+JSON.stringify(optionValues));
 
-  if (shouldDebug) console.log(fieldValues);
+  if (shouldDebug) console.log('fieldValues: '+JSON.stringify(fieldValues));
+  // if (shouldDebug) console.log(fieldValues);
 
   // Handle the default config from the yml file
   const allowedFields = staticmanCommentsConfig?.allowedFields || [];
