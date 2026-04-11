@@ -86,6 +86,8 @@ console.log('fieldValues: '+JSON.stringify(fieldValues));
   const optionTransforms = staticmanCommentsConfig?.optionTransforms || {};
 console.log('allowedFields: '+JSON.stringify(allowedFields))
 console.log('requiredFields: '+JSON.stringify(requiredFields))
+console.log('allowedOptions: '+JSON.stringify(allowedOptions))
+console.log('requiredOptions: '+JSON.stringify(requiredOptions))
 console.log('fieldTransforms: '+JSON.stringify(fieldTransforms))
   // Build input fields schema
   const fieldInputSchema = z.object(buildSchemaObject(allowedFields, requiredFields, fieldTransforms)).strict();
