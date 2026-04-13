@@ -124,6 +124,10 @@ app.post('/api/handle/form', async c => {
   const filename = Object.prototype.hasOwnProperty.call(staticmanCommentsConfig, 'filename')
     ? handlePlaceholders(staticmanCommentsConfig.filename, fields, validatedOptions)
     : '';
+
+console.log('filename will be '+filename)
+console.log('staticmanCommentsConfig.filename: '+staticmanCommentsConfig.filename)
+
   const directoryPath = Object.prototype.hasOwnProperty.call(staticmanCommentsConfig, 'path')
     ? handlePlaceholders(staticmanCommentsConfig.path, fields, validatedOptions)
     : `_data/results/${new Date(fields.date).valueOf()}`;
