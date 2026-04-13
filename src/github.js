@@ -100,7 +100,7 @@ class GitHub {
     console.log('branch: '+JSON.stringify(branch))
     console.log('branch.object.sha: '+branch[0].object)
     let sha = branch.object.sha;
-    if (sha==='undefined'){
+    if (sha===undefined){
 sha = branch.object[0].sha;
     }
 
