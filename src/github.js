@@ -99,12 +99,10 @@ class GitHub {
     console.log('createBranchOnRepository: 2')
     console.log('branch: '+JSON.stringify(branch))
     console.log('branch.object.sha: '+branch[0].object)
-    let sha = branch.object.sha;
-    if (sha===undefined){
-sha = branch.object[0].sha;
+    let obj = branch.object;
+    if (obj===undefined){
+obj = branch.object[0];
     }
-
-console.log('sha :'+sha)
 
     const createBranchResponse = await fetch(
       `https://api.github.com/repos/${this.organizationSlug}/${this.repositorySlug}/git/refs`,
@@ -112,7 +110,7 @@ console.log('sha :'+sha)
         method: 'POST',
         body: JSON.stringify({
           ref: `refs/heads/${branchName}`,
-          sha: sha
+          sha: obj.sha
         }),
         headers: this.headers
       }

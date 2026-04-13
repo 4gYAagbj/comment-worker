@@ -99,7 +99,7 @@ console.log('optionValues: '+JSON.stringify(optionValues));
   if (!isUndefined(rawError) || !isUndefined(formattedError)) {
     return c.text('Error', 400);
   }
-  console.log('så här långt 3')
+  
   // Build input options schema
   const optionInputSchema = z.object(buildSchemaObject(allowedOptions, requiredOptions, optionTransforms)).strict();
   // Validate the input options and escape
@@ -113,7 +113,7 @@ console.log('optionValues: '+JSON.stringify(optionValues));
     ...validatedFields,
     date
   };
-console.log('så här långt 4')
+  
   // Handle the data to create the comment entry
   const commitMessage = Object.prototype.hasOwnProperty.call(
     staticmanCommentsConfig,
