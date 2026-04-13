@@ -103,7 +103,7 @@ class GitHub {
     if (obj===undefined){
 obj = branch.object[0];
     }
-
+console.log('kolla: '+obj)
     const createBranchResponse = await fetch(
       `https://api.github.com/repos/${this.organizationSlug}/${this.repositorySlug}/git/refs`,
       {
