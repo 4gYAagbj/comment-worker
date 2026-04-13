@@ -29,13 +29,13 @@ class GitHub {
       id: appId,
       privateKey
     });
-    
+
     const { token: installationToken } = await this.getInstallationTokenByOrgName(
       appId,
       token,
       organizationSlug
     );
-    
+
     return new GitHub(appId, installationToken, organizationSlug, repositorySlug);
   }
 
@@ -51,7 +51,7 @@ class GitHub {
     const appInstallationsResponse = await fetch('https://api.github.com/app/installations', {
       headers
     });
-    
+
     const appInstallations = await gatherResponse(appInstallationsResponse);
 
     const installation = appInstallations.find(item => item.account.login === organizationSlug);
@@ -94,17 +94,13 @@ class GitHub {
         headers: this.headers
       }
     );
-    
+
     const branch = await gatherResponse(branchResponse);
-    console.log('createBranchOnRepository: 2')
-    console.log('branch: '+JSON.stringify(branch))
-    console.log('branch.object.sha: '+branch[0].object)
     let obj = branch.object;
-    console.log('kolla1 : '+obj)
-    if (obj===undefined){
-obj = branch[0].object;
+    if (obj === undefined) {
+      obj = branch[0].object;
     }
-console.log('kolla: '+obj)
+
     const createBranchResponse = await fetch(
       `https://api.github.com/repos/${this.organizationSlug}/${this.repositorySlug}/git/refs`,
       {
@@ -116,9 +112,8 @@ console.log('kolla: '+obj)
         headers: this.headers
       }
     );
-console.log('createBranchOnRepository: 3')
+    
     const branchCreation = await gatherResponse(createBranchResponse);
-console.log('createBranchOnRepository: 4')
     return branchCreation;
   }
 

@@ -70,8 +70,8 @@ app.post('/api/handle/form', async c => {
   // Handle the fields and options
   const fieldValues = body.fields || {};
   const optionValues = body.options || {};
-console.log('fieldValues: '+JSON.stringify(fieldValues));
-console.log('optionValues: '+JSON.stringify(optionValues));
+// console.log('fieldValues: '+JSON.stringify(fieldValues));
+// console.log('optionValues: '+JSON.stringify(optionValues));
   if (shouldDebug) console.log(fieldValues);
 
   // Handle the default config from the yml file
@@ -127,18 +127,17 @@ console.log('optionValues: '+JSON.stringify(optionValues));
   const directoryPath = Object.prototype.hasOwnProperty.call(staticmanCommentsConfig, 'path')
     ? handlePlaceholders(staticmanCommentsConfig.path, fields, validatedOptions)
     : `_data/results/${new Date(fields.date).valueOf()}`;
-console.log('så här långt 5')
+    
   const yamlData = yaml.stringify(fields);
   const base64YamlData = Base64.encode(yamlData);
 
   const defaultBranch = staticmanCommentsConfig?.branch || 'master';
   const branch = `commentworker_${commentId}`;
-  console.log('så här långt 6')
+  
   if (moderation) {
-    console.log('så här långt 6.5')
     const createBranchResponse = await gh.createBranchOnRepository(branch, defaultBranch);
   }
-  console.log('så här långt 7')
+  
   const filePath = `${directoryPath}/${filename}.yml`;
   const createCommentFileResponse = await gh.createFileOnRepository(
     filePath,
@@ -146,7 +145,7 @@ console.log('så här långt 5')
     base64YamlData,
     moderation ? branch : defaultBranch
   );
-console.log('så här långt 8')
+  
   if (!createCommentFileResponse?.content) {
     return c.text('Failed to create comment file. Please check if your file path is valid.', 422);
   }
