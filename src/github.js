@@ -98,7 +98,7 @@ class GitHub {
     const branch = await gatherResponse(branchResponse);
     console.log('createBranchOnRepository: 2')
     console.log('branch: '+JSON.stringify(branch))
-    console.log('branch.object.sha: '+branch.object.sha)
+    console.log('branch.object.sha: '+branch.object)
     const createBranchResponse = await fetch(
       `https://api.github.com/repos/${this.organizationSlug}/${this.repositorySlug}/git/refs`,
       {
