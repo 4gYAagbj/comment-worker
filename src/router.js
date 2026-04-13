@@ -71,10 +71,9 @@ app.post('/api/handle/form', async c => {
   // Handle the fields and options
   const fieldValues = body.fields || {};
   const optionValues = body.options || {};
-  // console.log('options: '+JSON.stringify(optionValues));
 console.log('fieldValues: '+JSON.stringify(fieldValues));
   //if (shouldDebug) console.log('fieldValues: '+JSON.stringify(fieldValues));
-  // if (shouldDebug) console.log(fieldValues);
+  if (shouldDebug) console.log(fieldValues);
 
   // Handle the default config from the yml file
   const allowedFields = staticmanCommentsConfig?.allowedFields || [];
@@ -84,11 +83,11 @@ console.log('fieldValues: '+JSON.stringify(fieldValues));
   const moderation = staticmanCommentsConfig?.moderation === 'true' || true;
   const fieldTransforms = staticmanCommentsConfig?.transforms || staticmanCommentsConfig?.fieldTransforms || {};
   const optionTransforms = staticmanCommentsConfig?.optionTransforms || {};
-console.log('allowedFields: '+JSON.stringify(allowedFields))
-console.log('requiredFields: '+JSON.stringify(requiredFields))
-console.log('allowedOptions: '+JSON.stringify(allowedOptions))
-console.log('requiredOptions: '+JSON.stringify(requiredOptions))
-console.log('fieldTransforms: '+JSON.stringify(fieldTransforms))
+// console.log('allowedFields: '+JSON.stringify(allowedFields))
+// console.log('requiredFields: '+JSON.stringify(requiredFields))
+// console.log('allowedOptions: '+JSON.stringify(allowedOptions))
+// console.log('requiredOptions: '+JSON.stringify(requiredOptions))
+// console.log('fieldTransforms: '+JSON.stringify(fieldTransforms))
   // Build input fields schema
   const fieldInputSchema = z.object(buildSchemaObject(allowedFields, requiredFields, fieldTransforms)).strict();
   // Validate the input fields and escape

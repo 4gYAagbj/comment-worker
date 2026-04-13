@@ -95,10 +95,7 @@ class GitHub {
       }
     );
 
-const foo = await gatherResponse(branchResponse);
-// console.log("branch: "+JSON.stringify(foo));
-    const branch = foo[0];
-
+    const branch = await gatherResponse(branchResponse);
     const createBranchResponse = await fetch(
       `https://api.github.com/repos/${this.organizationSlug}/${this.repositorySlug}/git/refs`,
       {
@@ -150,9 +147,9 @@ const foo = await gatherResponse(branchResponse);
   }
 
   async getFileFromRepository(filePath, branchFrom = 'master') {
-    console.log('filePath: '+filePath)
-    console.log('branchFrom: '+branchFrom)
-    console.log('url: '+`https://api.github.com/repos/${this.organizationSlug}/${this.repositorySlug}/contents/${filePath}?ref=${branchFrom}`)
+    // console.log('filePath: '+filePath)
+    // console.log('branchFrom: '+branchFrom)
+    // console.log('url: '+`https://api.github.com/repos/${this.organizationSlug}/${this.repositorySlug}/contents/${filePath}?ref=${branchFrom}`)
     const fileResponse = await fetch(
       `https://api.github.com/repos/${this.organizationSlug}/${this.repositorySlug}/contents/${filePath}?ref=${branchFrom}`,
       {
