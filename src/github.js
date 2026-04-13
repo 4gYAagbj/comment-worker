@@ -104,6 +104,8 @@ class GitHub {
 sha = branch.object[0].sha;
     }
 
+console.log('sha :'+sha)
+
     const createBranchResponse = await fetch(
       `https://api.github.com/repos/${this.organizationSlug}/${this.repositorySlug}/git/refs`,
       {
