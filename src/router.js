@@ -103,9 +103,7 @@ console.log('optionValues: '+JSON.stringify(optionValues));
   // Build input options schema
   const optionInputSchema = z.object(buildSchemaObject(allowedOptions, requiredOptions, optionTransforms)).strict();
   // Validate the input options and escape
-  console.log('start validate options')
   const { validatedSchema: validatedOptions } = await Validator.check(optionInputSchema, optionValues);
-  console.log('end validate options')
   // Generate unique placeholder properties
   const commentId = createCuid();
   const date = new Date().toISOString();
@@ -115,7 +113,7 @@ console.log('optionValues: '+JSON.stringify(optionValues));
     ...validatedFields,
     date
   };
-
+console.log('så här långt 4')
   // Handle the data to create the comment entry
   const commitMessage = Object.prototype.hasOwnProperty.call(
     staticmanCommentsConfig,
@@ -129,7 +127,7 @@ console.log('optionValues: '+JSON.stringify(optionValues));
   const directoryPath = Object.prototype.hasOwnProperty.call(staticmanCommentsConfig, 'path')
     ? handlePlaceholders(staticmanCommentsConfig.path, fields, validatedOptions)
     : `_data/results/${new Date(fields.date).valueOf()}`;
-
+console.log('så här långt 5')
   const yamlData = yaml.stringify(fields);
   const base64YamlData = Base64.encode(yamlData);
 
@@ -138,7 +136,7 @@ console.log('optionValues: '+JSON.stringify(optionValues));
   if (moderation) {
     const createBranchResponse = await gh.createBranchOnRepository(branch, defaultBranch);
   }
-  
+  console.log('så här långt 6')
   const filePath = `${directoryPath}/${filename}.yml`;
   const createCommentFileResponse = await gh.createFileOnRepository(
     filePath,
@@ -146,7 +144,7 @@ console.log('optionValues: '+JSON.stringify(optionValues));
     base64YamlData,
     moderation ? branch : defaultBranch
   );
-
+console.log('så här långt 7')
   if (!createCommentFileResponse?.content) {
     return c.text('Failed to create comment file. Please check if your file path is valid.', 422);
   }
