@@ -110,7 +110,7 @@ sha = branch.object[0].sha;
         method: 'POST',
         body: JSON.stringify({
           ref: `refs/heads/${branchName}`,
-          sha: branch.object.sha
+          sha: sha
         }),
         headers: this.headers
       }
