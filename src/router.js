@@ -103,7 +103,9 @@ console.log('optionValues: '+JSON.stringify(optionValues));
   // Build input options schema
   const optionInputSchema = z.object(buildSchemaObject(allowedOptions, requiredOptions, optionTransforms)).strict();
   // Validate the input options and escape
+  console.log('start validate options')
   const { validatedSchema: validatedOptions } = await Validator.check(optionInputSchema, optionValues);
+  console.log('end validate options')
   // Generate unique placeholder properties
   const commentId = createCuid();
   const date = new Date().toISOString();
