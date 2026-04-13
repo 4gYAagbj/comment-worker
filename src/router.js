@@ -60,7 +60,6 @@ app.post('/api/handle/form', async c => {
   const contentTypeHeader = req.header('Content-Type');
 
   if (contentTypeHeader === 'application/x-www-form-urlencoded') {
-    console.log('var det application/x-www-form-urlencoded');
     body = convertFormDataToObject(await req.parseBody());
   } else if (contentTypeHeader === 'application/json') {
     body = await req.json();
@@ -72,7 +71,7 @@ app.post('/api/handle/form', async c => {
   const fieldValues = body.fields || {};
   const optionValues = body.options || {};
 console.log('fieldValues: '+JSON.stringify(fieldValues));
-  //if (shouldDebug) console.log('fieldValues: '+JSON.stringify(fieldValues));
+console.log('optionValues: '+JSON.stringify(optionValues));
   if (shouldDebug) console.log(fieldValues);
 
   // Handle the default config from the yml file
