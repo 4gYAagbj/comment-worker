@@ -102,7 +102,7 @@ class GitHub {
     let obj = branch.object;
     console.log('kolla1 : '+obj)
     if (obj===undefined){
-obj = branch.object[0];
+obj = branch[0].object;
     }
 console.log('kolla: '+obj)
     const createBranchResponse = await fetch(
