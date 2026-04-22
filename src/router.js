@@ -47,7 +47,7 @@ app.post('/api/handle/form', async c => {
   const shouldDebug = env.CW_DEBUG === 'true';
 
   const gh = await GitHub.initialize(appId, formattedPrivateKey, organizationSlug, repositorySlug);
-
+console.log('repositoryBranch: '+repositoryBranch)
   const staticmanFile = await gh.getFileFromRepository('staticman.yml', repositoryBranch);
   if (!staticmanFile?.content) {
     return c.text('Missing staticman.yml', 500);

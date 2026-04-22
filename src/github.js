@@ -153,7 +153,7 @@ class GitHub {
   async getFileFromRepository(filePath, branchFrom = 'master') {
     // console.log('filePath: '+filePath)
     // console.log('branchFrom: '+branchFrom)
-    // console.log('url: '+`https://api.github.com/repos/${this.organizationSlug}/${this.repositorySlug}/contents/${filePath}?ref=${branchFrom}`)
+    console.log('url: '+`https://api.github.com/repos/${this.organizationSlug}/${this.repositorySlug}/contents/${filePath}?ref=${branchFrom}`)
     const fileResponse = await fetch(
       `https://api.github.com/repos/${this.organizationSlug}/${this.repositorySlug}/contents/${filePath}?ref=${branchFrom}`,
       {
