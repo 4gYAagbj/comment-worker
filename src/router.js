@@ -86,6 +86,8 @@ console.log('repositoryBranch: '+repositoryBranch)
 // console.log('requiredFields: '+JSON.stringify(requiredFields))
 // console.log('allowedOptions: '+JSON.stringify(allowedOptions))
 // console.log('requiredOptions: '+JSON.stringify(requiredOptions))
+console.log('moderation: '+moderation)
+console.log('staticmanCommentsConfig.moderation: '+staticmanCommentsConfig?.moderation)
 // console.log('fieldTransforms: '+JSON.stringify(fieldTransforms))
   // Build input fields schema
   const fieldInputSchema = z.object(buildSchemaObject(allowedFields, requiredFields, fieldTransforms)).strict();
@@ -138,9 +140,9 @@ console.log('staticmanCommentsConfig.filename: '+staticmanCommentsConfig.filenam
   const defaultBranch = staticmanCommentsConfig?.branch || 'master';
   const branch = `commentworker_${commentId}`;
   
-  if (moderation) {
-    const createBranchResponse = await gh.createBranchOnRepository(branch, defaultBranch);
-  }
+  // if (moderation) {
+  //   const createBranchResponse = await gh.createBranchOnRepository(branch, defaultBranch);
+  // }
   
   const filePath = `${directoryPath}/${filename}.yml`;
   const createCommentFileResponse = await gh.createFileOnRepository(
