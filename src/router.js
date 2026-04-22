@@ -138,10 +138,10 @@ console.log('staticmanCommentsConfig.filename: '+staticmanCommentsConfig.filenam
   const defaultBranch = staticmanCommentsConfig?.branch || 'master';
   const branch = `commentworker_${commentId}`;
   
-  if (moderation) {
-    const createBranchResponse = await gh.createBranchOnRepository(branch, defaultBranch);
-  }
-  
+  // if (moderation) {
+  //   const createBranchResponse = await gh.createBranchOnRepository(branch, defaultBranch);
+  // }
+  console.log('moderation: '+moderation)
   const filePath = `${directoryPath}/${filename}.yml`;
   const createCommentFileResponse = await gh.createFileOnRepository(
     filePath,
