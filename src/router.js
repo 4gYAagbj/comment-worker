@@ -79,7 +79,7 @@ console.log('repositoryBranch: '+repositoryBranch)
   const requiredFields = staticmanCommentsConfig?.requiredFields || [];
   const allowedOptions = staticmanCommentsConfig?.allowedOptions || [];
   const requiredOptions = staticmanCommentsConfig?.requiredOptions || [];
-  const moderation = staticmanCommentsConfig?.moderation || true;
+  const moderation = staticmanCommentsConfig?.moderation ?? true;
   const fieldTransforms = staticmanCommentsConfig?.transforms || staticmanCommentsConfig?.fieldTransforms || {};
   const optionTransforms = staticmanCommentsConfig?.optionTransforms || {};
 // console.log('allowedFields: '+JSON.stringify(allowedFields))
