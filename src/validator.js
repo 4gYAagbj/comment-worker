@@ -5,9 +5,8 @@ class Validator {
     let validatedSchema = {};
     let formattedError, rawError;
     try {
-      console.log('så här långt 2')
-      console.log('schema: '+JSON.stringify(schema))
-      console.log('fields: '+JSON.stringify(fields))
+      // console.log('schema: '+JSON.stringify(schema))
+      // console.log('fields: '+JSON.stringify(fields))
       validatedSchema = await schema.parseAsync(fields);
     } catch (validationError) {
       console.error(validationError);
