@@ -79,7 +79,7 @@ console.log('repositoryBranch: '+repositoryBranch)
   const requiredFields = staticmanCommentsConfig?.requiredFields || [];
   const allowedOptions = staticmanCommentsConfig?.allowedOptions || [];
   const requiredOptions = staticmanCommentsConfig?.requiredOptions || [];
-  const moderation = staticmanCommentsConfig?.moderation === 'true' || true;
+  const moderation = staticmanCommentsConfig?.moderation || true;
   const fieldTransforms = staticmanCommentsConfig?.transforms || staticmanCommentsConfig?.fieldTransforms || {};
   const optionTransforms = staticmanCommentsConfig?.optionTransforms || {};
 // console.log('allowedFields: '+JSON.stringify(allowedFields))
@@ -138,10 +138,10 @@ console.log('staticmanCommentsConfig.filename: '+staticmanCommentsConfig.filenam
   const defaultBranch = staticmanCommentsConfig?.branch || 'master';
   const branch = `commentworker_${commentId}`;
   
-  // if (moderation) {
-  //   const createBranchResponse = await gh.createBranchOnRepository(branch, defaultBranch);
-  // }
-  console.log('moderation: '+moderation)
+  if (moderation) {
+    const createBranchResponse = await gh.createBranchOnRepository(branch, defaultBranch);
+  }
+  
   const filePath = `${directoryPath}/${filename}.yml`;
   const createCommentFileResponse = await gh.createFileOnRepository(
     filePath,
