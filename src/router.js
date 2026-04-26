@@ -185,11 +185,16 @@ app.use('api/sse/*', async (c, next) => {
 app.get('/api/sse', (c) => {
   return c.stream(async (stream) => {
     // stream.write('retry: 1000\n');
-
+    let counter = 0;
     const i = setInterval(() => {
       stream.write('event: message\n');
       stream.write('data: hello\n\n');
-      clearInterval(i);
+
+      if (counter === 5) {
+        stream.write('event: close\n');
+        stream.write('data: close\n\n');
+        clearInterval(i);
+      }
     }, 5000);
 
     // stream.write('id: 0\n');
@@ -201,8 +206,8 @@ app.get('/api/sse', (c) => {
     // stream.write('id: 2\n');
     // stream.write('data: jams\n\n');
 
-    stream.write('event: close\n');
-    stream.write('data: close\n\n');
+    // stream.write('event: close\n');
+    // stream.write('data: close\n\n');
   });
 
 });
