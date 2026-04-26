@@ -15,6 +15,37 @@ import Validator from './validator';
 // Setting up our application:
 const app = new Hono();
 
+app.get('/api/events', async (c) => {
+  // Set SSE headers
+  c.header('Content-Type', 'text/event-stream');
+  c.header('Cache-Control', 'no-cache');
+  c.header('Connection', 'keep-alive');
+
+  // Get the raw Node.js response object
+  const res = c.res;
+
+  // Helper to send SSE messages
+  const send = (data) => {
+    res.write(`data: ${JSON.stringify(data)}\n\n`);
+  };
+
+  // Send an initial message
+  send({ message: 'Connected to SSE stream' });
+
+  // Send a message every 2 seconds
+  const interval = setInterval(() => {
+    send({ time: new Date().toISOString() });
+  }, 2000);
+
+  // Handle client disconnect
+  req.on('close', () => {
+    clearInterval(interval);
+    res.end();
+  });
+
+  return res; // Keep connection open
+});
+
 app.use('/api/*', async (c, next) => {
   const { env } = c;
   const allowedOriginsString = env.CW_ALLOWED_ORIGINS;
@@ -183,57 +214,32 @@ app.use('api/sse/*', async (c, next) => {
 
 // app.get('/api/sse', (c) => c.text('Just a test'));
 app.get('/api/sse', (c) => {
+  return c.stream(async (stream) => {
+    // stream.write('retry: 1000\n');
+    let counter = 0;
+    const i = setInterval(() => {
+      stream.write('event: message\n');
+      stream.write('data: hello\n\n');
 
-  // Get the raw Node.js response object
-  // const res = c;//.res;
+      if (counter === 5) {
+        stream.write('event: close\n');
+        stream.write('data: close\n\n');
+        clearInterval(i);
+      }
+    }, 5000);
 
-  // Helper to send SSE messages
-  const send = (data) => {
-    c.write(`data: ${JSON.stringify(data)}\n\n`);
-  };
+    // stream.write('id: 0\n');
+    // stream.write('data: hello\n\n');
 
-  // Send an initial message
-  send({ message: 'Connected to SSE stream' });
+    // stream.write('id: 1\n');
+    // stream.write('data: world\n\n');
 
-  // Send a message every 2 seconds
-  const interval = setInterval(() => {
-    send({ time: new Date().toISOString() });
-  }, 2000);
+    // stream.write('id: 2\n');
+    // stream.write('data: jams\n\n');
 
-  // Handle client disconnect
-  req.on('close', () => {
-    clearInterval(interval);
-    c.end();
+    // stream.write('event: close\n');
+    // stream.write('data: close\n\n');
   });
-
-  return c; // Keep connection open
-
-  // return c.stream(async (stream) => {
-  //   // stream.write('retry: 1000\n');
-  //   let counter = 0;
-  //   const i = setInterval(() => {
-  //     stream.write('event: message\n');
-  //     stream.write('data: hello\n\n');
-
-  //     if (counter === 5) {
-  //       stream.write('event: close\n');
-  //       stream.write('data: close\n\n');
-  //       clearInterval(i);
-  //     }
-  //   }, 5000);
-
-  //   // stream.write('id: 0\n');
-  //   // stream.write('data: hello\n\n');
-
-  //   // stream.write('id: 1\n');
-  //   // stream.write('data: world\n\n');
-
-  //   // stream.write('id: 2\n');
-  //   // stream.write('data: jams\n\n');
-
-  //   // stream.write('event: close\n');
-  //   // stream.write('data: close\n\n');
-  // });
 
 });
 
