@@ -47,7 +47,6 @@ app.post('/api/handle/form', async c => {
   const shouldDebug = env.CW_DEBUG === 'true';
 
   const gh = await GitHub.initialize(appId, formattedPrivateKey, organizationSlug, repositorySlug);
-console.log('repositoryBranch: '+repositoryBranch)
   const staticmanFile = await gh.getFileFromRepository('staticman.yml', repositoryBranch);
   if (!staticmanFile?.content) {
     return c.text('Missing staticman.yml', 500);
@@ -70,8 +69,8 @@ console.log('repositoryBranch: '+repositoryBranch)
   // Handle the fields and options
   const fieldValues = body.fields || {};
   const optionValues = body.options || {};
-// console.log('fieldValues: '+JSON.stringify(fieldValues));
-// console.log('optionValues: '+JSON.stringify(optionValues));
+  // console.log('fieldValues: '+JSON.stringify(fieldValues));
+  // console.log('optionValues: '+JSON.stringify(optionValues));
   if (shouldDebug) console.log(fieldValues);
 
   // Handle the default config from the yml file
@@ -82,11 +81,11 @@ console.log('repositoryBranch: '+repositoryBranch)
   const moderation = staticmanCommentsConfig?.moderation ?? true;
   const fieldTransforms = staticmanCommentsConfig?.transforms || staticmanCommentsConfig?.fieldTransforms || {};
   const optionTransforms = staticmanCommentsConfig?.optionTransforms || {};
-// console.log('allowedFields: '+JSON.stringify(allowedFields))
-// console.log('requiredFields: '+JSON.stringify(requiredFields))
-// console.log('allowedOptions: '+JSON.stringify(allowedOptions))
-// console.log('requiredOptions: '+JSON.stringify(requiredOptions))
-// console.log('fieldTransforms: '+JSON.stringify(fieldTransforms))
+  // console.log('allowedFields: '+JSON.stringify(allowedFields))
+  // console.log('requiredFields: '+JSON.stringify(requiredFields))
+  // console.log('allowedOptions: '+JSON.stringify(allowedOptions))
+  // console.log('requiredOptions: '+JSON.stringify(requiredOptions))
+  // console.log('fieldTransforms: '+JSON.stringify(fieldTransforms))
   // Build input fields schema
   const fieldInputSchema = z.object(buildSchemaObject(allowedFields, requiredFields, fieldTransforms)).strict();
   // Validate the input fields and escape
@@ -99,7 +98,7 @@ console.log('repositoryBranch: '+repositoryBranch)
   if (!isUndefined(rawError) || !isUndefined(formattedError)) {
     return c.text('Error', 400);
   }
-  
+
   // Build input options schema
   const optionInputSchema = z.object(buildSchemaObject(allowedOptions, requiredOptions, optionTransforms)).strict();
   // Validate the input options and escape
@@ -113,7 +112,7 @@ console.log('repositoryBranch: '+repositoryBranch)
     ...validatedFields,
     date
   };
-  
+
   // Handle the data to create the comment entry
   const commitMessage = Object.prototype.hasOwnProperty.call(
     staticmanCommentsConfig,
@@ -125,23 +124,23 @@ console.log('repositoryBranch: '+repositoryBranch)
     ? handlePlaceholders(staticmanCommentsConfig.filename, fields, validatedOptions)
     : '';
 
-// console.log('filename will be '+filename)
-// console.log('staticmanCommentsConfig.filename: '+staticmanCommentsConfig.filename)
+  // console.log('filename will be '+filename)
+  // console.log('staticmanCommentsConfig.filename: '+staticmanCommentsConfig.filename)
 
   const directoryPath = Object.prototype.hasOwnProperty.call(staticmanCommentsConfig, 'path')
     ? handlePlaceholders(staticmanCommentsConfig.path, fields, validatedOptions)
     : `_data/results/${new Date(fields.date).valueOf()}`;
-    
+
   const yamlData = yaml.stringify(fields);
   const base64YamlData = Base64.encode(yamlData);
 
   const defaultBranch = staticmanCommentsConfig?.branch || 'master';
   const branch = `commentworker_${commentId}`;
-  
+
   if (moderation) {
     const createBranchResponse = await gh.createBranchOnRepository(branch, defaultBranch);
   }
-  
+
   const filePath = `${directoryPath}/${filename}.yml`;
   const createCommentFileResponse = await gh.createFileOnRepository(
     filePath,
@@ -149,11 +148,11 @@ console.log('repositoryBranch: '+repositoryBranch)
     base64YamlData,
     moderation ? branch : defaultBranch
   );
-  
+
   if (!createCommentFileResponse?.content) {
     return c.text('Failed to create comment file. Please check if your file path is valid.', 422);
   }
-  
+
   if (moderation) {
     const pullRequestBody = Object.prototype.hasOwnProperty.call(
       staticmanCommentsConfig,
@@ -161,8 +160,8 @@ console.log('repositoryBranch: '+repositoryBranch)
     )
       ? handlePlaceholders(staticmanCommentsConfig.pullRequestBody, fields, validatedOptions)
       : `Dear human,\r\n\r\nHere\'s a new entry for your approval. :tada:\r\n\r\nMerge the pull request to accept it, or close it to send it away.\r\n\r\n:heart: Your friend [comment-worker](https://github.com/zanechua/comment-worker) :muscle:\r\n\r\n---\r\n\r\n${objectToMarkdownTable(
-          fields
-        )}`;
+        fields
+      )}`;
     const pullRequest = await gh.createPullRequestOnRepository(
       commitMessage,
       pullRequestBody,
@@ -172,6 +171,40 @@ console.log('repositoryBranch: '+repositoryBranch)
   }
 
   return c.text('Created', 201);
+});
+
+app.use('/sse/*', async (c, next) => {
+  c.header('Content-Type', 'text/event-stream');
+  c.header('Cache-Control', 'no-cache');
+  c.header('Connection', 'keep-alive');
+  const { env } = c;
+  const allowedOriginsString = env.CW_ALLOWED_ORIGINS;
+  const allowedOrigins = allowedOriginsString.split(',');
+
+  const corsMiddleware = cors({
+    origin: allowedOrigins,
+    allowHeaders: ['Origin', 'Content-Type', 'Content-Length', 'Accept', 'User-Agent'],
+    allowMethods: ['POST']
+  });
+
+  return corsMiddleware(c, next);
+});
+
+app.get('/sse', (c) => {
+
+  return c.stream(async (stream) => {
+    stream.write('retry: 1000\n');
+
+    stream.write('id: 0\n');
+    stream.write('data: hello\n\n');
+
+    stream.write('id: 1\n');
+    stream.write('data: world\n\n');
+
+    stream.write('event: close\n');
+    stream.write('data: close\n\n');
+  })
+
 });
 
 // 404 for everything else
