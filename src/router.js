@@ -173,39 +173,40 @@ app.post('/api/handle/form', async c => {
   return c.text('Created', 201);
 });
 
-app.use('/sse/*', async (c, next) => {
-  c.header('Content-Type', 'text/event-stream');
-  c.header('Cache-Control', 'no-cache');
-  c.header('Connection', 'keep-alive');
-  const { env } = c;
-  const allowedOriginsString = env.CW_ALLOWED_ORIGINS;
-  const allowedOrigins = allowedOriginsString.split(',');
+// app.use('/sse/*', async (c, next) => {
+//   c.header('Content-Type', 'text/event-stream');
+//   c.header('Cache-Control', 'no-cache');
+//   c.header('Connection', 'keep-alive');
+//   const { env } = c;
+//   const allowedOriginsString = env.CW_ALLOWED_ORIGINS;
+//   const allowedOrigins = allowedOriginsString.split(',');
 
-  const corsMiddleware = cors({
-    origin: allowedOrigins,
-    allowHeaders: ['Origin', 'Content-Type', 'Content-Length', 'Accept', 'User-Agent'],
-    allowMethods: ['POST']
-  });
+//   const corsMiddleware = cors({
+//     origin: allowedOrigins,
+//     allowHeaders: ['Origin', 'Content-Type', 'Content-Length', 'Accept', 'User-Agent'],
+//     allowMethods: ['POST']
+//   });
 
-  return corsMiddleware(c, next);
-});
+//   return corsMiddleware(c, next);
+// });
 
-app.get('/sse', (c) => {
+app.get('/sse', (c) => c.text('Just a test'));
+// app.get('/sse', (c) => {
 
-  return c.stream(async (stream) => {
-    stream.write('retry: 1000\n');
+//   return c.stream(async (stream) => {
+//     stream.write('retry: 1000\n');
 
-    stream.write('id: 0\n');
-    stream.write('data: hello\n\n');
+//     stream.write('id: 0\n');
+//     stream.write('data: hello\n\n');
 
-    stream.write('id: 1\n');
-    stream.write('data: world\n\n');
+//     stream.write('id: 1\n');
+//     stream.write('data: world\n\n');
 
-    stream.write('event: close\n');
-    stream.write('data: close\n\n');
-  })
+//     stream.write('event: close\n');
+//     stream.write('data: close\n\n');
+//   })
 
-});
+// });
 
 // 404 for everything else
 app.all('*', () => new Response('These are not the droids you are looking for', { status: 404 }));
