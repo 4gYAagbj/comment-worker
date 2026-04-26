@@ -190,7 +190,7 @@ app.post('/api/handle/form', async c => {
 //   return corsMiddleware(c, next);
 // });
 
-app.get('/sse', (c) => c.text('Just a test'));
+app.get('/api/sse', (c) => c.text('Just a test'));
 // app.get('/sse', (c) => {
 
 //   return c.stream(async (stream) => {
