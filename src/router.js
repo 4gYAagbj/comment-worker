@@ -184,8 +184,8 @@ app.use('api/sse/*', async (c, next) => {
 // app.get('/api/sse', (c) => c.text('Just a test'));
 app.get('/api/sse', (c) => {
 
-// Get the raw Node.js response object
-  const res = c.res;
+  // Get the raw Node.js response object
+  const res = c;//.res;
 
   // Helper to send SSE messages
   const send = (data) => {
