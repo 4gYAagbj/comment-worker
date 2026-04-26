@@ -191,11 +191,11 @@ stream.write('data: hello\n\n');
 clearInterval(i);
 }, 5000);
 
-    stream.write('id: 0\n');
-    stream.write('data: hello\n\n');
+    // stream.write('id: 0\n');
+    // stream.write('data: hello\n\n');
 
-    stream.write('id: 1\n');
-    stream.write('data: world\n\n');
+    // stream.write('id: 1\n');
+    // stream.write('data: world\n\n');
 
     // stream.write('id: 2\n');
     // stream.write('data: jams\n\n');
