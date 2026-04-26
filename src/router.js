@@ -184,11 +184,13 @@ app.use('api/sse/*', async (c, next) => {
 app.get('/api/sse', (c) => {
 
   return c.stream(async (stream) => {
-let i = 0;
-    setInterval(()=>{
-      stream.write(`retry: ${++i}\n`);
-    }, 2000)
-  })
+// let i = 0;
+//     setInterval(()=>{
+//       stream.write(`retry: ${++i}\n`);
+//     }, 2000)
+
+    stream.write(`korv`);
+  });
 
 });
 
