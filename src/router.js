@@ -185,11 +185,11 @@ app.use('api/sse/*', async (c, next) => {
 app.get('/api/sse', (c) => {
 
   // Get the raw Node.js response object
-  const res = c;//.res;
+  // const res = c;//.res;
 
   // Helper to send SSE messages
   const send = (data) => {
-    res.write(`data: ${JSON.stringify(data)}\n\n`);
+    c.write(`data: ${JSON.stringify(data)}\n\n`);
   };
 
   // Send an initial message
@@ -203,10 +203,10 @@ app.get('/api/sse', (c) => {
   // Handle client disconnect
   req.on('close', () => {
     clearInterval(interval);
-    res.end();
+    c.end();
   });
 
-  return res; // Keep connection open
+  return c; // Keep connection open
 
   // return c.stream(async (stream) => {
   //   // stream.write('retry: 1000\n');
