@@ -184,12 +184,16 @@ app.use('api/sse/*', async (c, next) => {
 app.get('/api/sse', (c) => {
 
   return c.stream(async (stream) => {
-// let i = 0;
-//     setInterval(()=>{
-//       stream.write(`retry: ${++i}\n`);
-//     }, 2000)
+stream.write('retry: 1000\n');
 
-    stream.write(`korv`);
+        stream.write('id: 0\n');
+        stream.write('data: hello\n\n');
+        
+        stream.write('id: 1\n');
+        stream.write('data: world\n\n');
+
+        stream.write('event: close\n');
+        stream.write('data: close\n\n');
   });
 
 });
