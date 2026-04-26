@@ -186,10 +186,11 @@ app.get('/api/sse', (c) => {
   return c.stream(async (stream) => {
     // stream.write('retry: 1000\n');
 
-const i = setInterval(() => {
-stream.write('data: hello\n\n');
-clearInterval(i);
-}, 5000);
+    const i = setInterval(() => {
+      stream.write('event: message\n');
+      stream.write('data: hello\n\n');
+      clearInterval(i);
+    }, 5000);
 
     // stream.write('id: 0\n');
     // stream.write('data: hello\n\n');
