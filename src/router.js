@@ -181,33 +181,45 @@ app.use('api/sse/*', async (c, next) => {
   await next();
 });
 
+function sleep(ms) {
+return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function demo() {
+console.log("Start");
+
+console.log("Executed after 1 second");
+}
+
 // app.get('/api/sse', (c) => c.text('Just a test'));
 app.get('/api/sse', (c) => {
   return c.stream(async (stream) => {
     // stream.write('retry: 1000\n');
-    let counter = 0;
-    const i = setInterval(() => {
-      stream.write('event: message\n');
-      stream.write('data: hello\n\n');
+    // let counter = 0;
+    // const i = setInterval(() => {
+    //   stream.write('event: message\n');
+    //   stream.write('data: hello\n\n');
 
-      if (counter === 5) {
-        stream.write('event: close\n');
-        stream.write('data: close\n\n');
-        clearInterval(i);
-      }
-    }, 5000);
+    //   if (counter === 5) {
+    //     stream.write('event: close\n');
+    //     stream.write('data: close\n\n');
+    //     clearInterval(i);
+    //   }
+    // }, 5000,555);
 
-    // stream.write('id: 0\n');
-    // stream.write('data: hello\n\n');
+await sleep(1000); // Waits for 1 second
 
-    // stream.write('id: 1\n');
-    // stream.write('data: world\n\n');
+    stream.write('id: 0\n');
+    stream.write('data: hello\n\n');
+
+    stream.write('id: 1\n');
+    stream.write('data: world\n\n');
 
     // stream.write('id: 2\n');
     // stream.write('data: jams\n\n');
 
-    // stream.write('event: close\n');
-    // stream.write('data: close\n\n');
+    stream.write('event: close\n');
+    stream.write('data: close\n\n');
   });
 
 });
