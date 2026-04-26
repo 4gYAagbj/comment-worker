@@ -207,7 +207,7 @@ app.get('/api/sse', (c) => {
     //   }
     // }, 5000,555);
 
-await sleep(1000); // Waits for 1 second
+await sleep(11000); // Waits for 11 seconds
 
     stream.write('id: 0\n');
     stream.write('data: hello\n\n');
