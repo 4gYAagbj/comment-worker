@@ -174,9 +174,9 @@ app.post('/api/handle/form', async c => {
 });
 
 app.use('api/sse/*', async (c, next) => {
-  c.header('Content-Type', 'text/event-stream');
-  c.header('Cache-Control', 'no-cache');
-  c.header('Connection', 'keep-alive');
+  // c.header('Content-Type', 'text/event-stream');
+  // c.header('Cache-Control', 'no-cache');
+  // c.header('Connection', 'keep-alive');
   await next();
 });
 
