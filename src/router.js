@@ -194,8 +194,8 @@ stream.write('id: 0\n');
 stream.write('id: 2\n');
         stream.write('data: jams\n\n');
 
-        // stream.write('event: close\n');
-        // stream.write('data: close\n\n');
+        stream.write('event: close\n');
+        stream.write('data: close\n\n');
   });
 
 });
