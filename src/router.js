@@ -185,13 +185,13 @@ app.get('/api/sse', (c) => {
   return c.stream(async (stream) => {
 // stream.write('retry: 1000\n');
 setTimeout(function() {
-console.log("Hello, World!");
-}, 7777);
-        stream.write('id: 0\n');
+stream.write('id: 0\n');
         stream.write('data: hello\n\n');
         
         stream.write('id: 1\n');
         stream.write('data: world\n\n');
+}, 11111);
+        
 
         // stream.write('event: close\n');
         // stream.write('data: close\n\n');
