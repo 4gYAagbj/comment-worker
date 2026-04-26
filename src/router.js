@@ -184,18 +184,18 @@ app.use('api/sse/*', async (c, next) => {
 // app.get('/api/sse', (c) => c.text('Just a test'));
 app.get('/api/sse', (c) => {
   return c.stream(async (stream) => {
-// stream.write('retry: 1000\n');
-stream.write('id: 0\n');
-        stream.write('data: hello\n\n');
-        
-        stream.write('id: 1\n');
-        stream.write('data: world\n\n');
-      
-stream.write('id: 2\n');
-        stream.write('data: jams\n\n');
+    // stream.write('retry: 1000\n');
+    stream.write('id: 0\n');
+    stream.write('data: hello\n\n');
 
-        stream.write('event: close\n');
-        stream.write('data: close\n\n');
+    stream.write('id: 1\n');
+    stream.write('data: world\n\n');
+
+    // stream.write('id: 2\n');
+    // stream.write('data: jams\n\n');
+
+    stream.write('event: close\n');
+    stream.write('data: close\n\n');
   });
 
 });
