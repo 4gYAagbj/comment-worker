@@ -15,37 +15,6 @@ import Validator from './validator';
 // Setting up our application:
 const app = new Hono();
 
-app.get('/api/events', async (c) => {
-  // Set SSE headers
-  c.header('Content-Type', 'text/event-stream');
-  c.header('Cache-Control', 'no-cache');
-  c.header('Connection', 'keep-alive');
-
-  // Get the raw Node.js response object
-  const res = c.res;
-
-  // Helper to send SSE messages
-  const send = (data) => {
-    res.write(`data: ${JSON.stringify(data)}\n\n`);
-  };
-
-  // Send an initial message
-  send({ message: 'Connected to SSE stream' });
-
-  // Send a message every 2 seconds
-  const interval = setInterval(() => {
-    send({ time: new Date().toISOString() });
-  }, 2000);
-
-  // Handle client disconnect
-  req.on('close', () => {
-    clearInterval(interval);
-    res.end();
-  });
-
-  return res; // Keep connection open
-});
-
 app.use('/api/*', async (c, next) => {
   const { env } = c;
   const allowedOriginsString = env.CW_ALLOWED_ORIGINS;
@@ -241,6 +210,37 @@ app.get('/api/sse', (c) => {
     // stream.write('data: close\n\n');
   });
 
+});
+
+app.get('/api/events', async (c) => {
+  // Set SSE headers
+  c.header('Content-Type', 'text/event-stream');
+  c.header('Cache-Control', 'no-cache');
+  c.header('Connection', 'keep-alive');
+
+  // Get the raw Node.js response object
+  const res = c.res;
+
+  // Helper to send SSE messages
+  const send = (data) => {
+    res.write(`data: ${JSON.stringify(data)}\n\n`);
+  };
+
+  // Send an initial message
+  send({ message: 'Connected to SSE stream' });
+
+  // Send a message every 2 seconds
+  const interval = setInterval(() => {
+    send({ time: new Date().toISOString() });
+  }, 2000);
+
+  // Handle client disconnect
+  req.on('close', () => {
+    clearInterval(interval);
+    res.end();
+  });
+
+  return res; // Keep connection open
 });
 
 // 404 for everything else
