@@ -183,32 +183,57 @@ app.use('api/sse/*', async (c, next) => {
 
 // app.get('/api/sse', (c) => c.text('Just a test'));
 app.get('/api/sse', (c) => {
-  return c.stream(async (stream) => {
-    // stream.write('retry: 1000\n');
-    let counter = 0;
-    const i = setInterval(() => {
-      stream.write('event: message\n');
-      stream.write('data: hello\n\n');
 
-      if (counter === 5) {
-        stream.write('event: close\n');
-        stream.write('data: close\n\n');
-        clearInterval(i);
-      }
-    }, 5000);
+// Get the raw Node.js response object
+  const res = c.res;
 
-    // stream.write('id: 0\n');
-    // stream.write('data: hello\n\n');
+  // Helper to send SSE messages
+  const send = (data) => {
+    res.write(`data: ${JSON.stringify(data)}\n\n`);
+  };
 
-    // stream.write('id: 1\n');
-    // stream.write('data: world\n\n');
+  // Send an initial message
+  send({ message: 'Connected to SSE stream' });
 
-    // stream.write('id: 2\n');
-    // stream.write('data: jams\n\n');
+  // Send a message every 2 seconds
+  const interval = setInterval(() => {
+    send({ time: new Date().toISOString() });
+  }, 2000);
 
-    // stream.write('event: close\n');
-    // stream.write('data: close\n\n');
+  // Handle client disconnect
+  req.on('close', () => {
+    clearInterval(interval);
+    res.end();
   });
+
+  return res; // Keep connection open
+
+  // return c.stream(async (stream) => {
+  //   // stream.write('retry: 1000\n');
+  //   let counter = 0;
+  //   const i = setInterval(() => {
+  //     stream.write('event: message\n');
+  //     stream.write('data: hello\n\n');
+
+  //     if (counter === 5) {
+  //       stream.write('event: close\n');
+  //       stream.write('data: close\n\n');
+  //       clearInterval(i);
+  //     }
+  //   }, 5000);
+
+  //   // stream.write('id: 0\n');
+  //   // stream.write('data: hello\n\n');
+
+  //   // stream.write('id: 1\n');
+  //   // stream.write('data: world\n\n');
+
+  //   // stream.write('id: 2\n');
+  //   // stream.write('data: jams\n\n');
+
+  //   // stream.write('event: close\n');
+  //   // stream.write('data: close\n\n');
+  // });
 
 });
 
