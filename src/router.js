@@ -182,10 +182,11 @@ app.use('api/sse/*', async (c, next) => {
 
 // app.get('/api/sse', (c) => c.text('Just a test'));
 app.get('/api/sse', (c) => {
-
   return c.stream(async (stream) => {
 // stream.write('retry: 1000\n');
-
+setTimeout(function() {
+console.log("Hello, World!");
+}, 7777);
         stream.write('id: 0\n');
         stream.write('data: hello\n\n');
         
