@@ -188,17 +188,17 @@ app.post('/api/handle/form', async c => {
   return c.text('Created', 201);
 });
 
-app.use('api/sse/*', async (c, next) => {
-  c.header('Content-Type', 'text/event-stream');
-  // c.header('Cache-Control', 'no-cache');
-  // c.header('Connection', 'keep-alive');
-  // c.header('X-Accel-Buffering', 'no');
-  await next();
-});
+// app.use('api/sse/*', async (c, next) => {
+//   c.header('Content-Type', 'text/event-stream');
+//   // c.header('Cache-Control', 'no-cache');
+//   // c.header('Connection', 'keep-alive');
+//   // c.header('X-Accel-Buffering', 'no');
+//   await next();
+// });
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+// function sleep(ms) {
+//   return new Promise(resolve => setTimeout(resolve, ms));
+// }
 
 // app.get('/api/sse', (c) => c.text('Just a test'));
 app.get('/api/sse', (c) => {
@@ -247,36 +247,36 @@ return streamSSE(c, async (stream) => {
 
 });
 
-app.get('/api/events', async (c) => {
-  // Set SSE headers
-  c.header('Content-Type', 'text/event-stream');
-  c.header('Cache-Control', 'no-cache');
-  c.header('Connection', 'keep-alive');
+// app.get('/api/events', async (c) => {
+//   // Set SSE headers
+//   c.header('Content-Type', 'text/event-stream');
+//   c.header('Cache-Control', 'no-cache');
+//   c.header('Connection', 'keep-alive');
 
-  // Get the raw Node.js response object
-  const res = c.res;
+//   // Get the raw Node.js response object
+//   const res = c.res;
 
-  // Helper to send SSE messages
-  const send = (data) => {
-    res.write(`data: ${JSON.stringify(data)}\n\n`);
-  };
+//   // Helper to send SSE messages
+//   const send = (data) => {
+//     res.write(`data: ${JSON.stringify(data)}\n\n`);
+//   };
 
-  // Send an initial message
-  send({ message: 'Connected to SSE stream' });
+//   // Send an initial message
+//   send({ message: 'Connected to SSE stream' });
 
-  // Send a message every 2 seconds
-  const interval = setInterval(() => {
-    send({ time: new Date().toISOString() });
-  }, 2000);
+//   // Send a message every 2 seconds
+//   const interval = setInterval(() => {
+//     send({ time: new Date().toISOString() });
+//   }, 2000);
 
-  // Handle client disconnect
-  req.on('close', () => {
-    clearInterval(interval);
-    res.end();
-  });
+//   // Handle client disconnect
+//   req.on('close', () => {
+//     clearInterval(interval);
+//     res.end();
+//   });
 
-  return res; // Keep connection open
-});
+//   return res; // Keep connection open
+// });
 
 // 404 for everything else
 app.all('*', () => new Response('These are not the droids you are looking for', { status: 404 }));
