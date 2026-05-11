@@ -229,6 +229,12 @@ app.get('/api/sse', (c) => {
     // // stream.write('id: 2\n');
     // // stream.write('data: jams\n\n');
 
+    await stream.writeSSE({
+          data: 'my message',
+          event: 'time-update',
+          id: String(666),
+        })
+
     stream.write('event: close\n');
     stream.write('data: close\n\n');
   });
