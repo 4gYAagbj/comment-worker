@@ -196,54 +196,54 @@ app.post('/api/handle/form', async c => {
 //   await next();
 // });
 
-// function sleep(ms) {
-//   return new Promise(resolve => setTimeout(resolve, ms));
-// }
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 // app.get('/api/sse', (c) => c.text('Just a test'));
 app.get('/api/sse', (c) => {
-  // return c.stream(async (stream) => {
-  //   // stream.write('retry: 1000\n');
-  //   // let counter = 0;
-  //   // const i = setInterval(() => {
-  //   //   stream.write('event: message\n');
-  //   //   stream.write('data: hello\n\n');
+  return c.stream(async (stream) => {
+    // stream.write('retry: 1000\n');
+    // let counter = 0;
+    // const i = setInterval(() => {
+    //   stream.write('event: message\n');
+    //   stream.write('data: hello\n\n');
 
-  //   //   if (counter === 5) {
-  //   //     stream.write('event: close\n');
-  //   //     stream.write('data: close\n\n');
-  //   //     clearInterval(i);
-  //   //   }
-  //   // }, 5000,555);
-  //   const clientId = Date.now();
-  //   const newClient = { id: clientId, response: stream };
-  //   clients.push(newClient);
-  //   await sleep(11000); // Waits for 11 seconds
+    //   if (counter === 5) {
+    //     stream.write('event: close\n');
+    //     stream.write('data: close\n\n');
+    //     clearInterval(i);
+    //   }
+    // }, 5000,555);
+    const clientId = Date.now();
+    const newClient = { id: clientId, response: stream };
+    clients.push(newClient);
+    await sleep(11000); // Waits for 11 seconds
 
-  //   // stream.write('id: 0\n');
-  //   // stream.write('data: hello\n\n');
+    // stream.write('id: 0\n');
+    // stream.write('data: hello\n\n');
 
-  //   // stream.write('id: 1\n');
-  //   // stream.write('data: world\n\n');
+    // stream.write('id: 1\n');
+    // stream.write('data: world\n\n');
 
-  //   // // stream.write('id: 2\n');
-  //   // // stream.write('data: jams\n\n');
+    // // stream.write('id: 2\n');
+    // // stream.write('data: jams\n\n');
 
-  //   // stream.write('event: close\n');
-  //   // stream.write('data: close\n\n');
-  // });
+    // stream.write('event: close\n');
+    // stream.write('data: close\n\n');
+  });
 
-return streamSSE(c, async (stream) => {
-    while (true) {
-      const message = `It is ${new Date().toISOString()}`
-      await stream.writeSSE({
-        data: message,
-        event: 'time-update',
-        id: String(id++),
-      })
-      await stream.sleep(1000)
-    }
-  })
+// return streamSSE(c, async (stream) => {
+//     while (true) {
+//       const message = `It is ${new Date().toISOString()}`
+//       await stream.writeSSE({
+//         data: message,
+//         event: 'time-update',
+//         id: String(id++),
+//       })
+//       await stream.sleep(1000)
+//     }
+//   });
 
 });
 
