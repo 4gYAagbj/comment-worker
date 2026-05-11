@@ -203,7 +203,7 @@ function sleep(ms) {
 // app.get('/api/sse', (c) => c.text('Just a test'));
 app.get('/api/sse', (c) => {
   return streamSSE(c, async (stream) => {
-  // return c.stream(async (stream) => {
+    // return c.stream(async (stream) => {
     // stream.write('retry: 1000\n');
     // let counter = 0;
     // const i = setInterval(() => {
@@ -230,10 +230,10 @@ app.get('/api/sse', (c) => {
     // // stream.write('data: jams\n\n');
 
     await stream.writeSSE({
-          data: 'my message',
-          event: 'time-update',
-          id: String(666),
-        })
+      data: 'my message',
+      event: 'time-update',
+      id: String(666),
+    });
 
     stream.write('event: close\n');
     stream.write('data: close\n\n');
@@ -251,6 +251,14 @@ app.get('/api/sse', (c) => {
   //     }
   //   });
 
+});
+
+app.post('/api/handle/sse', async c => {
+  clients.forEach(client =>
+    client.response.write(`data: ${JSON.stringify(date)}\n\n`)
+  );
+  
+  return c.text('Created', 201);
 });
 
 // app.get('/api/events', async (c) => {
