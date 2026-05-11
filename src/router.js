@@ -188,13 +188,13 @@ app.post('/api/handle/form', async c => {
   return c.text('Created', 201);
 });
 
-// app.use('api/sse/*', async (c, next) => {
-//   c.header('Content-Type', 'text/event-stream');
-//   // c.header('Cache-Control', 'no-cache');
-//   // c.header('Connection', 'keep-alive');
-//   // c.header('X-Accel-Buffering', 'no');
-//   await next();
-// });
+app.use('api/sse/*', async (c, next) => {
+  c.header('Content-Type', 'text/event-stream');
+  // c.header('Cache-Control', 'no-cache');
+  // c.header('Connection', 'keep-alive');
+  // c.header('X-Accel-Buffering', 'no');
+  await next();
+});
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
