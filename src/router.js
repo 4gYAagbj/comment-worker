@@ -202,7 +202,8 @@ function sleep(ms) {
 
 // app.get('/api/sse', (c) => c.text('Just a test'));
 app.get('/api/sse', (c) => {
-  return c.stream(async (stream) => {
+  return streamSSE(c, async (stream) => {
+  // return c.stream(async (stream) => {
     // stream.write('retry: 1000\n');
     // let counter = 0;
     // const i = setInterval(() => {
