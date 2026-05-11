@@ -13,16 +13,16 @@ import { buildSchemaObject } from './validation';
 import Validator from './validator';
 
 // Create an EventEmitter for custom app events
-const events = new EventEmitter();
+// const events = new EventEmitter();
 const clients = [];
 
 // Listen for a custom event
-events.on('commentLeft', (date) => {
-  console.log(`📢 Event: New comment -> ${date}`);
-  clients.forEach(client =>
-    client.response.write(`data: ${JSON.stringify(date)}\n\n`)
-  );
-})
+// events.on('commentLeft', (date) => {
+//   console.log(`📢 Event: New comment -> ${date}`);
+//   clients.forEach(client =>
+//     client.response.write(`data: ${JSON.stringify(date)}\n\n`)
+//   );
+// })
 
 // Setting up our application:
 const app = new Hono();
