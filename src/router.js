@@ -218,32 +218,31 @@ app.get('/api/sse', (c) => {
     const clientId = Date.now();
     const newClient = { id: clientId, response: stream };
     clients.push(newClient);
-    await sleep(11000); // Waits for 11 seconds
 
     stream.write('id: 0\n');
     stream.write('data: hello\n\n');
-
+    await sleep(11000); // Waits for 11 seconds
     // stream.write('id: 1\n');
     // stream.write('data: world\n\n');
 
     // // stream.write('id: 2\n');
     // // stream.write('data: jams\n\n');
 
-    // stream.write('event: close\n');
-    // stream.write('data: close\n\n');
+    stream.write('event: close\n');
+    stream.write('data: close\n\n');
   });
 
-// return streamSSE(c, async (stream) => {
-//     while (true) {
-//       const message = `It is ${new Date().toISOString()}`
-//       await stream.writeSSE({
-//         data: message,
-//         event: 'time-update',
-//         id: String(id++),
-//       })
-//       await stream.sleep(1000)
-//     }
-//   });
+  // return streamSSE(c, async (stream) => {
+  //     while (true) {
+  //       const message = `It is ${new Date().toISOString()}`
+  //       await stream.writeSSE({
+  //         data: message,
+  //         event: 'time-update',
+  //         id: String(id++),
+  //       })
+  //       await stream.sleep(1000)
+  //     }
+  //   });
 
 });
 
