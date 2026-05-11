@@ -2,6 +2,7 @@ import { createId as createCuid } from '@paralleldrive/cuid2';
 import { Hono } from 'hono';
 // eslint-disable-next-line
 import { cors } from 'hono/cors';
+import { streamSSE } from 'hono/streaming'
 import { isUndefined } from 'lodash';
 import yaml from 'yaml';
 import { z } from 'zod';
