@@ -12,6 +12,18 @@ import { convertFormDataToObject, handlePlaceholders, objectToMarkdownTable } fr
 import { buildSchemaObject } from './validation';
 import Validator from './validator';
 
+// Create an EventEmitter for custom app events
+const events = new EventEmitter();
+const clients = [];
+
+// Listen for a custom event
+events.on('commentLeft', (date) => {
+  console.log(`📢 Event: New comment -> ${date}`);
+  clients.forEach(client =>
+    client.response.write(`data: ${JSON.stringify(date)}\n\n`)
+  );
+})
+
 // Setting up our application:
 const app = new Hono();
 
@@ -170,6 +182,8 @@ app.post('/api/handle/form', async c => {
     );
   }
 
+  // Emit custom event
+  events.emit('commentLeft', fields.date)
   return c.text('Created', 201);
 });
 
@@ -182,13 +196,7 @@ app.use('api/sse/*', async (c, next) => {
 });
 
 function sleep(ms) {
-return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-async function demo() {
-console.log("Start");
-
-console.log("Executed after 1 second");
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 // app.get('/api/sse', (c) => c.text('Just a test'));
@@ -206,20 +214,22 @@ app.get('/api/sse', (c) => {
     //     clearInterval(i);
     //   }
     // }, 5000,555);
+    const clientId = Date.now();
+    const newClient = { id: clientId, response: stream };
+    clients.push(newClient);
+    await sleep(11000); // Waits for 11 seconds
 
-await sleep(11000); // Waits for 11 seconds
+    // stream.write('id: 0\n');
+    // stream.write('data: hello\n\n');
 
-    stream.write('id: 0\n');
-    stream.write('data: hello\n\n');
+    // stream.write('id: 1\n');
+    // stream.write('data: world\n\n');
 
-    stream.write('id: 1\n');
-    stream.write('data: world\n\n');
+    // // stream.write('id: 2\n');
+    // // stream.write('data: jams\n\n');
 
-    // stream.write('id: 2\n');
-    // stream.write('data: jams\n\n');
-
-    stream.write('event: close\n');
-    stream.write('data: close\n\n');
+    // stream.write('event: close\n');
+    // stream.write('data: close\n\n');
   });
 
 });
