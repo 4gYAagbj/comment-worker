@@ -220,8 +220,8 @@ app.get('/api/sse', (c) => {
     clients.push(newClient);
     await sleep(11000); // Waits for 11 seconds
 
-    // stream.write('id: 0\n');
-    // stream.write('data: hello\n\n');
+    stream.write('id: 0\n');
+    stream.write('data: hello\n\n');
 
     // stream.write('id: 1\n');
     // stream.write('data: world\n\n');
