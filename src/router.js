@@ -216,10 +216,10 @@ app.get('/api/sse', (c) => {
     //     clearInterval(i);
     //   }
     // }, 5000,555);
-    const clientId = Date.now();
-    const newClient = { id: clientId, response: stream };
-    clients.push(newClient);
-await stream.sleep(20000);
+//     const clientId = Date.now();
+//     const newClient = { id: clientId, response: stream };
+//     clients.push(newClient);
+// await stream.sleep(20000);
     // stream.write('id: 0\n');
     // stream.write('data: hello\n\n');
     // await sleep(11000); // Waits for 11 seconds
@@ -237,6 +237,16 @@ await stream.sleep(20000);
 
     // stream.write('event: close\n');
     // stream.write('data: close\n\n');
+let id=0;
+    while (true) {
+      const message = `It is ${new Date().toISOString()}`;
+      await stream.writeSSE({
+        data: message,
+        event: "time-update",
+        id: String(id++),
+      });
+      // without await stream.sleep(1000);
+    }
   });
 
   // return streamSSE(c, async (stream) => {
