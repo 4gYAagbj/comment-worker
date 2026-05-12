@@ -261,7 +261,7 @@ app.post('/api/handle/sse', async c => {
   return c.text('Created', 201);
 });
 
-app.post('/api/handle/sse', async c => {
+app.get('/api/handle/sse', async c => {
   clients.forEach(client =>
     client.response.write(`data: ${JSON.stringify(date)}\n\n`)
   );
