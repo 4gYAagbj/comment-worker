@@ -257,6 +257,14 @@ app.post('/api/handle/sse', async c => {
   clients.forEach(client =>
     client.response.write(`data: ${JSON.stringify(date)}\n\n`)
   );
+
+  return c.text('Created', 201);
+});
+
+app.post('/api/handle/sse', async c => {
+  clients.forEach(client =>
+    client.response.write(`data: ${JSON.stringify(date)}\n\n`)
+  );
   
   return c.text('Created', 201);
 });
