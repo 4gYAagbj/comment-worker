@@ -219,7 +219,7 @@ app.get('/api/sse', (c) => {
     const clientId = Date.now();
     const newClient = { id: clientId, response: stream };
     clients.push(newClient);
-
+await stream.sleep(20000);
     // stream.write('id: 0\n');
     // stream.write('data: hello\n\n');
     // await sleep(11000); // Waits for 11 seconds
