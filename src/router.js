@@ -266,7 +266,7 @@ app.get('/api/handle/sse', async c => {
     client.response.write(`data: ${JSON.stringify(date)}\n\n`)
   );
   
-  return c.text('Created', 201);
+  return c.text('Oh yeah', 201);
 });
 
 // app.get('/api/events', async (c) => {
