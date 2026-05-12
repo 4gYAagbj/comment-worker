@@ -255,9 +255,10 @@ app.get('/api/sse', (c) => {
 
 app.post('/api/handle/sse', async c => {
   const date = new Date().toISOString();
-  clients.forEach(client =>
+  clients.forEach(client => {
+    console.log(`writing ${date}`);
     client.response.write(`data: ${JSON.stringify(date)}\n\n`)
-  );
+  });
 
   return c.text('Created', 201);
 });
@@ -266,7 +267,7 @@ app.post('/api/handle/sse', async c => {
 //   clients.forEach(client =>
 //     client.response.write(`data: ${JSON.stringify(date)}\n\n`)
 //   );
-  
+
 //   return c.text('Oh yeah', 201);
 // });
 
