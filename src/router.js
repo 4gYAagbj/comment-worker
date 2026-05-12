@@ -254,6 +254,7 @@ app.get('/api/sse', (c) => {
 });
 
 app.post('/api/handle/sse', async c => {
+  const date = new Date().toISOString();
   clients.forEach(client =>
     client.response.write(`data: ${JSON.stringify(date)}\n\n`)
   );
