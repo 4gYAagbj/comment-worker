@@ -220,23 +220,23 @@ app.get('/api/sse', (c) => {
     const newClient = { id: clientId, response: stream };
     clients.push(newClient);
 
-    stream.write('id: 0\n');
-    stream.write('data: hello\n\n');
-    await sleep(11000); // Waits for 11 seconds
-    // stream.write('id: 1\n');
-    // stream.write('data: world\n\n');
+    // stream.write('id: 0\n');
+    // stream.write('data: hello\n\n');
+    // await sleep(11000); // Waits for 11 seconds
+    // // stream.write('id: 1\n');
+    // // stream.write('data: world\n\n');
 
-    // // stream.write('id: 2\n');
-    // // stream.write('data: jams\n\n');
+    // // // stream.write('id: 2\n');
+    // // // stream.write('data: jams\n\n');
 
-    await stream.writeSSE({
-      data: 'my message',
-      event: 'time-update',
-      id: String(666),
-    });
+    // await stream.writeSSE({
+    //   data: 'my message',
+    //   event: 'time-update',
+    //   id: String(666),
+    // });
 
-    stream.write('event: close\n');
-    stream.write('data: close\n\n');
+    // stream.write('event: close\n');
+    // stream.write('data: close\n\n');
   });
 
   // return streamSSE(c, async (stream) => {
@@ -261,13 +261,13 @@ app.post('/api/handle/sse', async c => {
   return c.text('Created', 201);
 });
 
-app.get('/api/handle/sse', async c => {
-  clients.forEach(client =>
-    client.response.write(`data: ${JSON.stringify(date)}\n\n`)
-  );
+// app.get('/api/handle/sse', async c => {
+//   clients.forEach(client =>
+//     client.response.write(`data: ${JSON.stringify(date)}\n\n`)
+//   );
   
-  return c.text('Oh yeah', 201);
-});
+//   return c.text('Oh yeah', 201);
+// });
 
 // app.get('/api/events', async (c) => {
 //   // Set SSE headers
