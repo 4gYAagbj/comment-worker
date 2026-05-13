@@ -238,15 +238,22 @@ app.get('/api/sse', (c) => {
     // stream.write('event: close\n');
     // stream.write('data: close\n\n');
 let id=0;
-    while (true) {
+    while (id < 6) {
       const message = `It is ${new Date().toISOString()}`;
       await stream.writeSSE({
         data: message,
         event: "time-update",
         id: String(id++),
       });
-      // without await stream.sleep(1000);
+
+      await stream.sleep(3000);
     }
+
+    await stream.writeSSE({
+        data: 'close',
+        event: "close",
+        id: String(id++),
+      });
   });
 
   // return streamSSE(c, async (stream) => {
