@@ -184,7 +184,28 @@ app.post('/api/handle/form', async c => {
   }
 
   // Emit custom event
-  events.emit('commentLeft', fields.date)
+  // events.emit('commentLeft', fields.date)
+  let id = 0;
+  // clients.forEach(client => {
+  //       await client.writeSSE({
+  //         data: message,
+  //         event: 'time-update',
+  //         id: String(id++),
+  //       })
+  // });
+  const sse = {
+    data: `It is ${new Date().toISOString()}`,
+    event: 'commentCreated',
+    id: String(id++),
+  };
+
+  setTimeout(() => {
+    msgs.forEach(msg => {
+      msg.push(sse);
+    });
+  }, 22000);
+
+
   return c.text('Created', 201);
 });
 
@@ -248,18 +269,18 @@ app.get('/api/sse', (c) => {
       //   event: "time-update",
       //   id: String(id++),
       // });
-      
+
       while (0 < mymsgs.length) {
         const sse = mymsgs.pop();
-        try{
-await stream.writeSSE(sse);
+        try {
+          await stream.writeSSE(sse);
         }
-        catch(error){
-console.error('did not work');
+        catch (error) {
+          console.error('did not work');
         }
       }
 
-id++;
+      id++;
       await stream.sleep(2000);
     }
 
@@ -295,14 +316,14 @@ app.post('/api/handle/sse', async c => {
   //         id: String(id++),
   //       })
   // });
-  const sse={
-          data: message,
-          event: 'commentCreated',
-          id: String(id++),
-        };
-msgs.forEach(msg=>{
-msg.push(sse);
-});
+  const sse = {
+    data: message,
+    event: 'commentCreated',
+    id: String(id++),
+  };
+  msgs.forEach(msg => {
+    msg.push(sse);
+  });
 
   return c.text('Created', 201);
 });
