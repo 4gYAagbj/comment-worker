@@ -241,21 +241,26 @@ app.get('/api/sse', (c) => {
     const mymsgs = [];
     msgs.push(mymsgs);
     let id = 0;
-    while (id < 60) {
+    while (id < 600) {
       // const message = `It is ${new Date().toISOString()}`;
       // await stream.writeSSE({
       //   data: message,
       //   event: "time-update",
       //   id: String(id++),
       // });
-      console.log('mymsgs.length '+mymsgs.length);
+      
       while (0 < mymsgs.length) {
-        const x = mymsgs.pop();
-        await stream.writeSSE(x);
+        const sse = mymsgs.pop();
+        try{
+await stream.writeSSE(sse);
+        }
+        catch(error){
+console.error('did not work');
+        }
       }
 
 id++;
-      await stream.sleep(3000);
+      await stream.sleep(2000);
     }
 
     await stream.writeSSE({
@@ -298,13 +303,6 @@ app.post('/api/handle/sse', async c => {
 msgs.forEach(msg=>{
 msg.push(sse);
 });
-  // for (const c of clients) {
-  //   await c.writeSSE({
-  //     data: message,
-  //     event: 'time-update',
-  //     id: String(id++),
-  //   })
-  // }
 
   return c.text('Created', 201);
 });
