@@ -248,10 +248,12 @@ app.get('/api/sse', (c) => {
       //   event: "time-update",
       //   id: String(id++),
       // });
-      while (0 < msgs.length) {
-        const x = msgs.pop();
+      console.log('mymsgs.length '+mymsgs.length);
+      while (0 < mymsgs.length) {
+        const x = mymsgs.pop();
         await stream.writeSSE(x);
       }
+
 id++;
       await stream.sleep(3000);
     }
