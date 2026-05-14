@@ -203,7 +203,7 @@ app.post('/api/handle/form', async c => {
     msgs.forEach(msg => {
       msg.push(sse);
     });
-  }, 22000);
+  }, 8000);
 
 
   return c.text('Created', 201);
