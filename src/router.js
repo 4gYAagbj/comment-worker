@@ -238,8 +238,8 @@ app.get('/api/sse', (c) => {
     // stream.write('event: close\n');
     // stream.write('data: close\n\n');
     // clients.push(stream);
-    // const mymsgs = [];
-    // msgs.push(mymsgs);
+    const mymsgs = [];
+    msgs.push(mymsgs);
     let id = 0;
     while (id < 60) {
       // const message = `It is ${new Date().toISOString()}`;
