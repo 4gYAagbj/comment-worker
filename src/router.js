@@ -211,7 +211,7 @@ app.post('/api/handle/form', async c => {
 c.executionCtx.waitUntil(
     (async () => {
       // Simulate a long-running task
-      await new Promise((resolve) => setTimeout(resolve, 25000));
+      await new Promise((resolve) => setTimeout(resolve, 23000));
 
 msgs.forEach(msg => {
       msg.push({
