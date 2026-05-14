@@ -240,7 +240,7 @@ app.get('/api/sse', (c) => {
     // clients.push(stream);
     // const mymsgs = [];
     // msgs.push(mymsgs);
-    // let id = 0;
+    let id = 0;
     while (id < 60) {
       // const message = `It is ${new Date().toISOString()}`;
       // await stream.writeSSE({
@@ -252,7 +252,7 @@ app.get('/api/sse', (c) => {
       //   const x = msgs.pop();
       //   await stream.writeSSE(x);
       // }
-
+id++;
       await stream.sleep(3000);
     }
 
