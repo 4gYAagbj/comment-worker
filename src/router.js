@@ -219,7 +219,7 @@ app.post('/api/handle/form', async c => {
     });
   })()
 
-sleep(9000);
+await sleep(9000);
   return c.text('Created', 201);
 });
 
