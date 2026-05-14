@@ -208,18 +208,35 @@ app.post('/api/handle/form', async c => {
 //     });
 //   }, 5000);
 // Start background task
-  ;(async () => {
-    await doHeavyWork();
-    msgs.forEach(msg => {
+c.executionCtx.waitUntil(
+    (async () => {
+      // Simulate a long-running task
+      await new Promise((resolve) => setTimeout(resolve, 5000));
+
+msgs.forEach(msg => {
       msg.push({
     data: `It is ${new Date().toISOString()}`,
     event: 'commentCreated',
     id: String(1),
   });
     });
-  })()
+      
+      console.log('Background task finished!');
+    })()
+  )
 
-await sleep(9000);
+  // ;(async () => {
+  //   await doHeavyWork();
+  //   msgs.forEach(msg => {
+  //     msg.push({
+  //   data: `It is ${new Date().toISOString()}`,
+  //   event: 'commentCreated',
+  //   id: String(1),
+  // });
+  //   });
+  // })()
+
+// await sleep(9000);
   return c.text('Created', 201);
 });
 
