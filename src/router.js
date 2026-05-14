@@ -237,6 +237,8 @@ app.get('/api/sse', (c) => {
 
     // stream.write('event: close\n');
     // stream.write('data: close\n\n');
+    console.log('type name is '+stream.constructor.name);
+    throw new Error('someCondition failed');
 let id=0;
     while (id < 6) {
       const message = `It is ${new Date().toISOString()}`;
