@@ -275,16 +275,21 @@ app.post('/api/handle/sse', async c => {
   const date = new Date().toISOString();
   const message = `It is ${date}`;
   let id=0;
-  clients.forEach(client => {
-    // console.log(`writing ${date}`);
-    // client.response.write(`data: ${JSON.stringify(date)}\n\n`)
-    
-        await client.writeSSE({
+  // clients.forEach(client => {
+  //       await client.writeSSE({
+  //         data: message,
+  //         event: 'time-update',
+  //         id: String(id++),
+  //       })
+  // });
+
+  for (const c of clients) {
+        await c.writeSSE({
           data: message,
           event: 'time-update',
           id: String(id++),
         })
-  });
+    }
 
   return c.text('Created', 201);
 });
