@@ -237,10 +237,10 @@ app.get('/api/sse', (c) => {
 
     // stream.write('event: close\n');
     // stream.write('data: close\n\n');
-    clients.push(stream);
-    const mymsgs = [];
-    msgs.push(mymsgs);
-    let id = 0;
+    // clients.push(stream);
+    // const mymsgs = [];
+    // msgs.push(mymsgs);
+    // let id = 0;
     while (id < 60) {
       // const message = `It is ${new Date().toISOString()}`;
       // await stream.writeSSE({
@@ -248,10 +248,10 @@ app.get('/api/sse', (c) => {
       //   event: "time-update",
       //   id: String(id++),
       // });
-      while (0 < msgs.length) {
-        const x = msgs.pop();
-        await stream.writeSSE(x);
-      }
+      // while (0 < msgs.length) {
+      //   const x = msgs.pop();
+      //   await stream.writeSSE(x);
+      // }
 
       await stream.sleep(3000);
     }
