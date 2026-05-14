@@ -199,13 +199,16 @@ app.post('/api/handle/form', async c => {
     id: String(id++),
   };
 
-  setTimeout(() => {
-    msgs.forEach(msg => {
+  msgs.forEach(msg => {
       msg.push(sse);
     });
-  }, 5000);
+//   setTimeout(() => {
+//     msgs.forEach(msg => {
+//       msg.push(sse);
+//     });
+//   }, 5000);
 
-sleep(8000);
+// sleep(8000);
   return c.text('Created', 201);
 });
 
