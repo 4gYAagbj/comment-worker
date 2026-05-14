@@ -199,19 +199,31 @@ app.post('/api/handle/form', async c => {
     id: String(id++),
   };
 
-  msgs.forEach(msg => {
-      msg.push(sse);
-    });
+  // msgs.forEach(msg => {
+  //     msg.push(sse);
+  //   });
 //   setTimeout(() => {
 //     msgs.forEach(msg => {
 //       msg.push(sse);
 //     });
 //   }, 5000);
+// Start background task
+  ;(async () => {
+    await doHeavyWork();
+    msgs.forEach(msg => {
+      msg.push(sse);
+    });
+  })()
 
 // sleep(8000);
   return c.text('Created', 201);
 });
 
+async function doHeavyWork() {
+  console.log('Starting heavy work...')
+  await new Promise((resolve) => setTimeout(resolve, 7000))
+  console.log('Heavy work done!')
+}
 // app.use('api/sse/*', async (c, next) => {
 //   c.header('Content-Type', 'text/event-stream');
 //   // c.header('Cache-Control', 'no-cache');
