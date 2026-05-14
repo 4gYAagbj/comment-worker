@@ -16,7 +16,7 @@ import Validator from './validator';
 // Create an EventEmitter for custom app events
 // const events = new EventEmitter();
 const clients = [];
-
+const msgs = [];
 // Listen for a custom event
 // events.on('commentLeft', (date) => {
 //   console.log(`📢 Event: New comment -> ${date}`);
@@ -216,10 +216,10 @@ app.get('/api/sse', (c) => {
     //     clearInterval(i);
     //   }
     // }, 5000,555);
-//     const clientId = Date.now();
-//     const newClient = { id: clientId, response: stream };
-//     clients.push(newClient);
-// await stream.sleep(20000);
+    //     const clientId = Date.now();
+    //     const newClient = { id: clientId, response: stream };
+    //     clients.push(newClient);
+    // await stream.sleep(20000);
     // stream.write('id: 0\n');
     // stream.write('data: hello\n\n');
     // await sleep(11000); // Waits for 11 seconds
@@ -238,7 +238,9 @@ app.get('/api/sse', (c) => {
     // stream.write('event: close\n');
     // stream.write('data: close\n\n');
     clients.push(stream);
-let id=0;
+    const mymsgs = [];
+    msgs.push(mymsgs);
+    let id = 0;
     while (id < 60) {
       // const message = `It is ${new Date().toISOString()}`;
       // await stream.writeSSE({
@@ -246,15 +248,19 @@ let id=0;
       //   event: "time-update",
       //   id: String(id++),
       // });
+      while (0 < msgs.length) {
+        const x = msgs.pop();
+        await stream.writeSSE(x);
+      }
 
       await stream.sleep(3000);
     }
 
     await stream.writeSSE({
-        data: 'close',
-        event: "close",
-        id: String(id++),
-      });
+      data: 'close',
+      event: "close",
+      id: String(id++),
+    });
   });
 
   // return streamSSE(c, async (stream) => {
@@ -274,7 +280,7 @@ let id=0;
 app.post('/api/handle/sse', async c => {
   const date = new Date().toISOString();
   const message = `It is ${date}`;
-  let id=0;
+  let id = 0;
   // clients.forEach(client => {
   //       await client.writeSSE({
   //         data: message,
@@ -282,14 +288,21 @@ app.post('/api/handle/sse', async c => {
   //         id: String(id++),
   //       })
   // });
-
-  for (const c of clients) {
-        await c.writeSSE({
+  const sse={
           data: message,
           event: 'time-update',
           id: String(id++),
-        })
-    }
+        };
+msgs.forEach(msg=>{
+msg.push(sse);
+});
+  // for (const c of clients) {
+  //   await c.writeSSE({
+  //     data: message,
+  //     event: 'time-update',
+  //     id: String(id++),
+  //   })
+  // }
 
   return c.text('Created', 201);
 });
