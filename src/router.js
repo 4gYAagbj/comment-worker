@@ -241,7 +241,7 @@ app.get('/api/sse', (c) => {
     const mymsgs = [];
     msgs.push(mymsgs);
     let id = 0;
-    while (id < 600) {
+    while (id < 6000) {
       // const message = `It is ${new Date().toISOString()}`;
       // await stream.writeSSE({
       //   data: message,
@@ -297,7 +297,7 @@ app.post('/api/handle/sse', async c => {
   // });
   const sse={
           data: message,
-          event: 'time-update',
+          event: 'commentCreated',
           id: String(id++),
         };
 msgs.forEach(msg=>{
