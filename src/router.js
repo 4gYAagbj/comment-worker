@@ -211,7 +211,11 @@ app.post('/api/handle/form', async c => {
   ;(async () => {
     await doHeavyWork();
     msgs.forEach(msg => {
-      msg.push(sse);
+      msg.push({
+    data: `It is ${new Date().toISOString()}`,
+    event: 'commentCreated',
+    id: String(1),
+  });
     });
   })()
 
