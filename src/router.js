@@ -341,28 +341,28 @@ app.get('/api/sse', (c) => {
 
 });
 
-app.post('/api/handle/sse', async c => {
-  const date = new Date().toISOString();
-  const message = `It is ${date}`;
-  let id = 0;
-  // clients.forEach(client => {
-  //       await client.writeSSE({
-  //         data: message,
-  //         event: 'time-update',
-  //         id: String(id++),
-  //       })
-  // });
-  const sse = {
-    data: message,
-    event: 'commentCreated',
-    id: String(id++),
-  };
-  msgs.forEach(msg => {
-    msg.push(sse);
-  });
+// app.post('/api/handle/sse', async c => {
+//   const date = new Date().toISOString();
+//   const message = `It is ${date}`;
+//   let id = 0;
+//   // clients.forEach(client => {
+//   //       await client.writeSSE({
+//   //         data: message,
+//   //         event: 'time-update',
+//   //         id: String(id++),
+//   //       })
+//   // });
+//   const sse = {
+//     data: message,
+//     event: 'commentCreated',
+//     id: String(id++),
+//   };
+//   msgs.forEach(msg => {
+//     msg.push(sse);
+//   });
 
-  return c.text('Created', 201);
-});
+//   return c.text('Created', 201);
+// });
 
 // app.get('/api/handle/sse', async c => {
 //   clients.forEach(client =>
