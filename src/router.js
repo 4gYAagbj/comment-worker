@@ -193,11 +193,11 @@ app.post('/api/handle/form', async c => {
   //         id: String(id++),
   //       })
   // });
-  const sse = {
-    data: `It is ${new Date().toISOString()}`,
-    event: 'commentCreated',
-    id: String(id++),
-  };
+  // const sse = {
+  //   data: `It is ${new Date().toISOString()}`,
+  //   event: 'commentCreated',
+  //   id: String(id++),
+  // };
 
   // msgs.forEach(msg => {
   //     msg.push(sse);
