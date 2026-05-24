@@ -53,7 +53,7 @@ app.use(
 //   return corsMiddleware(c, next);
 // });
 
-app.get('/api/handle/form', (c) => c.text('The Hono x meets Node.js'));
+app.get('/api/handle/form', (c) => c.text('The Hono meets Node.js'));
 
 // The api signature follows hono
 // POST to create the comment
