@@ -28,19 +28,30 @@ const msgs = [];
 // Setting up our application:
 const app = new Hono();
 
-app.use('/api/*', async (c, next) => {
-  const { env } = c;
-  const allowedOriginsString = env.CW_ALLOWED_ORIGINS;
-  const allowedOrigins = allowedOriginsString.split(',');
+app.use(
+  '/api/*',
+  cors({
+    origin: 'http://example.com',
+    allowHeaders: ['X-Custom-Header', 'Upgrade-Insecure-Requests'],
+    allowMethods: ['POST', 'GET', 'OPTIONS'],
+    exposeHeaders: ['Content-Length', 'X-Kuma-Revision'],
+    maxAge: 600,
+    credentials: true,
+  })
+);
+// app.use('/api/*', async (c, next) => {
+//   const { env } = c;
+//   const allowedOriginsString = env.CW_ALLOWED_ORIGINS;
+//   const allowedOrigins = allowedOriginsString.split(',');
 
-  const corsMiddleware = cors({
-    origin: allowedOrigins,
-    allowHeaders: ['Origin', 'Content-Type', 'Content-Length', 'Accept', 'User-Agent'],
-    allowMethods: ['POST']
-  });
+//   const corsMiddleware = cors({
+//     origin: allowedOrigins,
+//     allowHeaders: ['Origin', 'Content-Type', 'Content-Length', 'Accept', 'User-Agent'],
+//     allowMethods: ['POST']
+//   });
 
-  return corsMiddleware(c, next);
-});
+//   return corsMiddleware(c, next);
+// });
 
 app.get('/api/handle/form', (c) => c.text('The Hono meets Node.js'));
 
