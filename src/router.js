@@ -29,7 +29,7 @@ const msgs = [];
 const app = new Hono();
 
 app.use(
-  '/api/*',
+  'api/handle/form',
   cors({
     origin: 'http://example.com',
     allowHeaders: ['X-Custom-Header', 'Upgrade-Insecure-Requests'],
