@@ -15,8 +15,8 @@ import Validator from './validator';
 
 // Create an EventEmitter for custom app events
 // const events = new EventEmitter();
-const clients = [];
-const msgs = [];
+// const clients = [];
+// const msgs = [];
 // Listen for a custom event
 // events.on('commentLeft', (date) => {
 //   console.log(`📢 Event: New comment -> ${date}`);
@@ -29,7 +29,7 @@ const msgs = [];
 const app = new Hono();
 
 app.use(
-  '*',
+  '/api/*',
   cors({
     origin: 'http://example.com',
     allowHeaders: ['X-Custom-Header', 'Upgrade-Insecure-Requests'],
