@@ -1,7 +1,7 @@
 import { createId as createCuid } from '@paralleldrive/cuid2';
 import { Hono } from 'hono';
 // eslint-disable-next-line
-// import { cors } from 'hono/cors';
+import { cors } from 'hono/cors';
 import { streamSSE } from 'hono/streaming'
 import { isUndefined } from 'lodash';
 import yaml from 'yaml';
@@ -29,11 +29,11 @@ import Validator from './validator';
 const app = new Hono();
 
 app.use(
-  '/api/*',
+  '/api/handle/form',
   cors({
     origin: 'http://example.com',
     allowHeaders: ['X-Custom-Header', 'Upgrade-Insecure-Requests'],
-    allowMethods: ['POST', 'GET', 'OPTIONS'],
+    allowMethods: ['POST', 'OPTIONS'],
     exposeHeaders: ['Content-Length', 'X-Kuma-Revision'],
     maxAge: 600,
     credentials: true,
