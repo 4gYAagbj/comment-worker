@@ -1,7 +1,7 @@
 import { createId as createCuid } from '@paralleldrive/cuid2';
 import { Hono } from 'hono';
 // eslint-disable-next-line
-import { cors } from 'hono/cors';
+// import { cors } from 'hono/cors';
 import { streamSSE } from 'hono/streaming'
 import { isUndefined } from 'lodash';
 import yaml from 'yaml';
@@ -28,17 +28,17 @@ import Validator from './validator';
 // Setting up our application:
 const app = new Hono();
 
-app.use(
-  '/api/handle/form',
-  cors({
-    origin: 'http://example.com',
-    allowHeaders: ['X-Custom-Header', 'Upgrade-Insecure-Requests'],
-    allowMethods: ['POST', 'OPTIONS'],
-    exposeHeaders: ['Content-Length', 'X-Kuma-Revision'],
-    maxAge: 600,
-    credentials: true,
-  })
-);
+// app.use(
+//   '/api/handle/form',
+//   cors({
+//     origin: 'http://example.com',
+//     allowHeaders: ['X-Custom-Header', 'Upgrade-Insecure-Requests'],
+//     allowMethods: ['POST', 'OPTIONS'],
+//     exposeHeaders: ['Content-Length', 'X-Kuma-Revision'],
+//     maxAge: 600,
+//     credentials: true,
+//   })
+// );
 // app.use('/api/*', async (c, next) => {
 //   const { env } = c;
 //   const allowedOriginsString = env.CW_ALLOWED_ORIGINS;
